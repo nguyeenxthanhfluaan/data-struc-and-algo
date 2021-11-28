@@ -44,6 +44,13 @@ router.get('/', async (req, res) => {
 					.populate({ path: 'subject', model: Subject })
 					.sort({ lastModified: 1 })
 				break
+			case 'mostViewed':
+				result = await Post.find(query, { _id: 1, viewCount: 1 })
+					.populate({ path: 'type', model: Type })
+					.populate({ path: 'category', model: Category })
+					.populate({ path: 'subject', model: Subject })
+					.sort({ viewCount: -1 })
+				break
 			default:
 				result = await Post.find(query)
 					.populate({ path: 'type', model: Type })
