@@ -45,8 +45,6 @@ app.post('/img/upload', upload.any(), async (req, res) => {
 	}
 })
 
-console.log('ngoai', process.env.NODE_ENV)
-
 // Hosting
 if (process.env.NODE_ENV === 'production') {
 	app.use(express.static('../client/build'))

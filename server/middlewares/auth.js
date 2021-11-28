@@ -13,7 +13,7 @@ module.exports = function (req, res, next) {
 		next()
 	} catch (err) {
 		console.log(err)
-		res.clearCooki('token')
+		res.clearCookie('jwt')
 		return res.status(401).json({ msg: 'Token is not valid' })
 	}
 }

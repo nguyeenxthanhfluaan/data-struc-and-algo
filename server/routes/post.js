@@ -7,6 +7,24 @@ const Category = require('../models/Category')
 const Subject = require('../models/Subject')
 const auth = require('../middlewares/auth')
 
+router.get('/search-suggestion/', async (req, res) => {
+	try {
+		const { keyword } = req.query
+		console.log({ keyword })
+		const result = await Post.find({
+			content: { $regex: `${keyword}`, options: 'i' },
+		})
+			.populate({ path: 'type', model: Type })
+			.populate({ path: 'categories.category', model: Category })
+			.populate({ path: 'subjects.subject', model: Subject })
+		res.json(result)
+	} catch (error) {
+		console.log(error)
+		res.status(500).send('Server Error')
+		console.log(req.params)
+	}
+})
+
 // @route   GET api/post?category=algorithm&keyword=test
 // @desc    Get posts with conditions in query string, Get all post if no condition
 // @access  Public
