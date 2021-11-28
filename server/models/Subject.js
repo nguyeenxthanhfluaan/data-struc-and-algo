@@ -3,13 +3,13 @@ const Schema = mongoose.Schema
 
 const SubjectSchema = mongoose.Schema({
 	name: {
-		type: Schema.Types.String
+		type: Schema.Types.String,
 	},
 	category: {
 		type: Schema.Types.ObjectId,
-		ref: 'categories'
-	}
+		ref: 'Category',
+	},
 })
 
-const Subject = mongoose.model('subject', SubjectSchema)
+const Subject = mongoose.model('Subject', SubjectSchema)
 module.exports = Subject

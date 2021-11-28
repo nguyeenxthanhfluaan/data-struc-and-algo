@@ -7,5 +7,5 @@ const TypeSchema = mongoose.Schema({
 	}
 })
 
-const Type = mongoose.model('type', TypeSchema)
+const Type = mongoose.model('Type', TypeSchema)
 module.exports = Type

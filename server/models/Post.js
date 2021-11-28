@@ -16,24 +16,16 @@ const PostSchema = mongoose.Schema({
 	},
 	type: {
 		type: Schema.Types.ObjectId,
-		ref: 'types',
+		ref: 'Type',
 	},
-	categories: [
-		{
-			category: {
-				type: Schema.Types.ObjectId,
-				ref: 'category',
-			},
-		},
-	],
-	subjects: [
-		{
-			subject: {
-				type: Schema.Types.ObjectId,
-				ref: 'subject',
-			},
-		},
-	],
+	category: {
+		type: Schema.Types.ObjectId,
+		ref: 'Category',
+	},
+	subject: {
+		type: Schema.Types.ObjectId,
+		ref: 'Subject',
+	},
 	keywords: [
 		{
 			type: Schema.Types.String,
@@ -43,7 +35,12 @@ const PostSchema = mongoose.Schema({
 		type: Schema.Types.Date,
 		default: Date.now,
 	},
+	viewCount: {
+		type: Schema.Types.Number,
+		default: 0,
+	},
 })
 
-const Post = mongoose.model('post', PostSchema)
+const Post = mongoose.model('Post', PostSchema)
+
 module.exports = Post

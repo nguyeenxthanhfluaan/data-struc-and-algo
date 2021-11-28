@@ -41,6 +41,19 @@ router.post('/', async (req, res) => {
 	}
 })
 
+// // @route   DELETE api/type/:id
+// // @desc    Delete a type by id
+// // @access  Private
+router.delete('/:id', async (req, res) => {
+	try {
+		const type = await Type.findByIdAndDelete(req.params.id)
+		res.json(type)
+	} catch (error) {
+		console.log(error)
+		res.sendStatus(500)
+	}
+})
+
 // // @route   DELETE api/type
 // // @desc    Delete all types
 // // @access  Private
