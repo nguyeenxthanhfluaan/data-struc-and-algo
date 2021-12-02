@@ -67,6 +67,36 @@ router.get('/', async (req, res) => {
 	}
 })
 
+// test
+router.get('/search', async (req, res) => {
+	try {
+		const posts = await Post.aggregate([
+			{
+				$search: {
+					index: 'searchPosts',
+					text: {
+						query: req.query.keyword,
+						path: {
+							wildcard: '*',
+						},
+						fuzzy: {},
+					},
+				},
+			},
+			{
+				$project: {
+					title: 1,
+					content: 1,
+					score: { $meta: 'searchScore' },
+				},
+			},
+		])
+		res.json(posts)
+	} catch (error) {
+		console.log(error)
+	}
+})
+
 // @route   GET api/post/:id
 // @desc    Get a post by id
 // @access  Public
