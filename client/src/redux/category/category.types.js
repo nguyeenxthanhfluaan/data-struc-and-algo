@@ -1,0 +1,9 @@
+const catetgoryTypes = {
+	FETCH_CATEGORY: 'FETCH_CATEGORY',
+	SET_CATEGORY: 'SET_CATEGORY',
+   // ADD_CATEGORY: 'ADD_CATEGORY',
+   // UPDATE_CATEGORY: 'UPDATE_CATEGORY',
+   // DELETE_CATEGORY: 'DELETE_CATEGORY'
+}
+
+export default catetgoryTypes
