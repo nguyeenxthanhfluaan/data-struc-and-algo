@@ -1,0 +1,14 @@
+.btn {
+	border: none;
+	outline: none;
+	font-size: 1.6rem;
+	background-color: $main-color;
+	padding: 14px 18px;
+	color: $white-color;
+	transition: background-color 0.3s ease-in;
+	cursor: pointer;
+
+	&:hover {
+		background-color: $sub-color;
+	}
+}

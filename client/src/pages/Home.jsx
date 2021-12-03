@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchPost } from '../redux/post/post.actions';
 
-const Home = () => {
-  return <div>Home</div>;
+import Menu from '../components/Menu';
+
+const Homepage = () => {
+  const { post } = useSelector(({ post }) => ({ posts: post.posts }));
+  const dispatch = useDispatch();
+
+  return (
+    <div className="homepage">
+      <Menu />
+    </div>
+  );
 };
 
-export default Home;
+export default Homepage;

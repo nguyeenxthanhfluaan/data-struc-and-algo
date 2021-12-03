@@ -1,19 +1,17 @@
-import axios from 'axios'
-import categoryTypes from './category.types'
-
-import { toast } from 'react-toastify'
+import axios from 'axios';
+import categoryTypes from './category.types';
 
 export const fetchCategory = () => async (dispatch) => {
-	try {
-		const result = await axios.get('/api/category')
-		dispatch({
-			type: categoryTypes.SET_CATEGORY,
-			payload: result.data,
-		})
-	} catch (error) {
-		console.log(error)
-	}
-}
+  try {
+    const result = await axios.get('/api/category');
+    dispatch({
+      type: categoryTypes.SET_CATEGORY,
+      payload: result.data,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // export const updateCategory =
 // 	({ _id, name }) =>

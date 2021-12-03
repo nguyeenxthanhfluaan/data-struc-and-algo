@@ -1,0 +1,115 @@
+.header {
+  background-color: $white-color;
+
+  &__logo {
+    height: 45px;
+
+    &__icon {
+      width: 40px;
+      height: auto;
+      object-fit: contain;
+      margin-bottom: -14px;
+      margin-right: 8px;
+    }
+
+    &__text {
+      height: 100px;
+      font-size: 2rem;
+      font-weight: 600;
+      font-family: 'Courier New', Courier, monospace;
+      color: #009ad3;
+    }
+  }
+
+  &__menu {
+    display: flex;
+    height: $header-top-height;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+
+    &__item {
+      margin: 0 8px;
+      font-size: 1.5rem;
+      font-weight: 400;
+    }
+
+    &__category {
+      &:hover &__notify {
+        display: block;
+      }
+
+      &__notify {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: 180px;
+        border: 1px solid #d3d3d3;
+        background-color: var(--white-color);
+        cursor: default;
+        /* góc show ra màn hình */
+        transform-origin: top;
+        /* will-change: opacity, transform; */
+        animation: headerNotifyGrowth ease-in 0.25s;
+        border-radius: 5px;
+        display: none;
+
+        @keyframes headerNotifyGrowth {
+          from {
+            opacity: 0;
+            transform: scale(0);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+        &-title {
+          margin: 2px 12px;
+        }
+        &::before {
+          content: '';
+          border-width: 8px 38px;
+          border-style: solid;
+          // border-color: transparent transparent var(--main-color) transparent;
+          background-color: var(--white-color);
+          position: absolute;
+          right: 74px;
+          top: -47px;
+        }
+
+        &::after {
+          content: '';
+          display: block;
+          position: absolute;
+          right: 0;
+          top: -32px;
+          width: 180px;
+          height: 35px;
+          background-color: var(--white-color);
+        }
+      }
+    }
+  }
+
+  &__search {
+    display: flex;
+    width: 400px;
+
+    &__input {
+      border: 1px solid #cccccc;
+      outline: none;
+      font-size: 1.6rem;
+      padding: 10px;
+      padding-left: 10px;
+      flex: 1;
+      border-radius: 7px;
+    }
+  }
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
