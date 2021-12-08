@@ -8,11 +8,7 @@ const Homepage = () => {
 	const { post } = useSelector(({ post }) => ({ posts: post.posts }))
 	const dispatch = useDispatch()
 
-	return (
-		<div className='homepage'>
-			<Menu />
-		</div>
-	)
+	return <div className='homepage'>Đây là trang chủ</div>
 }
 
 export default Homepage
