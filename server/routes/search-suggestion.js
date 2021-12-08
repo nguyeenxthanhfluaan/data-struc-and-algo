@@ -8,7 +8,7 @@ const Subject = require('../models/Subject')
 // @route   GET api/search-suggestion
 // @desc    Get list of ids which
 // @access  Public
-router.get('/search-suggestion/', async (req, res) => {
+router.get('/', async (req, res) => {
 	// try {
 	// 	const result = await Post.find(
 	// 		{

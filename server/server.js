@@ -23,7 +23,7 @@ app.use('/api/post', require('./routes/post'))
 app.use('/api/category', require('./routes/category'))
 app.use('/api/subject', require('./routes/subject'))
 app.use('/api/type', require('./routes/type'))
-app.use('/api/', require('./routes/search'))
+app.use('/api/search-suggestion', require('./routes/search-suggestion'))
 
 // Upload image for CKEdtitor
 app.post('/img/upload', upload.any(), async (req, res) => {

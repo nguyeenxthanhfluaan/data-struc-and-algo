@@ -3,7 +3,8 @@ import postTypes from './post.type'
 const initialState = {
 	posts: null, // normal value = []
 	post: null, // normal value = {}
-	isLoading: true,
+	isLoadingPost: true,
+	isLoadingPosts: true,
 }
 
 const reducer = (state = initialState, action) => {
@@ -12,13 +13,13 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				posts: action.payload,
-				isLoading: false,
+				isLoadingPosts: false,
 			}
 		case postTypes.SET_POST:
 			return {
 				...state,
 				post: action.payload,
-				isLoading: false,
+				isLoadingPost: false,
 			}
 		default:
 			return state

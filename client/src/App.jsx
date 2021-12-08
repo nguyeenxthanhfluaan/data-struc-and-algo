@@ -10,8 +10,10 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import Menu from './components/Menu'
 
-import Homepage from './pages/HomePage'
-import PostDetail from './pages/PostDetail'
+import HomePage from './pages/HomePage'
+import PostDetailPage from './pages/PostDetailPage'
+import SearchPage from './pages/SearchPage'
+import { fetchTypes } from './redux/type/type.actions'
 
 function App() {
 	const dispatch = useDispatch()
@@ -19,19 +21,22 @@ function App() {
 	useEffect(() => {
 		dispatch(fetchCategory())
 		dispatch(fetchSubject())
+		dispatch(fetchTypes())
 	}, [])
 
 	return (
 		<BrowserRouter>
 			<Header />
 			<div className='container'>
-				<Menu />
-				<div style={{ flex: 1 }}>
-					<Switch>
-						<Route path='/' exact component={Homepage} />
-						<Route path='/post/detail/:id' exact component={PostDetail} />
-					</Switch>
-				</div>
+				<Switch>
+					<Route path='/' exact component={HomePage} />
+					<Route
+						path='/post/detail/:id'
+						exact
+						component={PostDetailPage}
+					/>
+					<Route path='/search/:keyword' exact component={SearchPage} />
+				</Switch>
 			</div>
 			<Footer />
 		</BrowserRouter>

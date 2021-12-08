@@ -26,18 +26,23 @@ const Menu = () => {
 							</h6>
 							{subjects &&
 								subjects.length > 0 &&
-								subjects.map((subject) => (
-									<Link key={`${category._id}${subject._id}`} to='/'>
-										<div className='menu__list__item__content'>
-											<span className='menu__list__item__content__dot'>
-												<img src={listIcon} alt='' />
-											</span>
-											<div className='menu__list__item__content__text'>
-												{subject.name}
+								subjects.map((subject) =>
+									subject.category._id === category._id ? (
+										<Link
+											key={`${category._id}${subject._id}`}
+											to='/'
+										>
+											<div className='menu__list__item__content'>
+												<span className='menu__list__item__content__dot'>
+													<img src={listIcon} alt='' />
+												</span>
+												<div className='menu__list__item__content__text'>
+													{subject.name}
+												</div>
 											</div>
-										</div>
-									</Link>
-								))}
+										</Link>
+									) : null
+								)}
 						</li>
 					))}
 			</ul>

@@ -1,3 +1,5 @@
+import React, { useState } from 'react'
+
 import Image from '../assets/images/logo2.png'
 
 import { Link, BrowserRouter } from 'react-router-dom'
@@ -5,6 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
 const Header = () => {
+	const [keyword, setKeyword] = useState('')
+
 	return (
 		<header className='header'>
 			<div className='container'>
@@ -42,16 +46,20 @@ const Header = () => {
 						Liên Hệ
 					</div>
 				</div>
-				<form className='header__search'>
+				<div className='header__search'>
 					<input
 						type='search'
 						className='header__search__input'
 						placeholder='Nhập từ khóa'
+						value={keyword}
+						onChange={(e) => setKeyword(e.target.value)}
 					/>
 					<button className='header__search__icon'>
-						<FontAwesomeIcon icon={faSearch} />
+						<Link to={`/search/${keyword}`}>
+							<FontAwesomeIcon icon={faSearch} />
+						</Link>
 					</button>
-				</form>
+				</div>
 			</div>
 		</header>
 	)

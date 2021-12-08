@@ -1,45 +1,5 @@
 .search {
-	padding: 20px;
-	font-size: 1.6rem;
-
-	&__header {
-		display: flex;
-		align-items: center;
-		justify-content: space-evenly;
-
-		&__text {
-			font-size: 1.8rem;
-			padding: 20px 0;
-
-			q {
-				color: $sub-color;
-			}
-		}
-	}
-
-	&__filter {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-
-		&__group {
-			display: flex;
-		}
-
-		&__input {
-			outline: none;
-			border: 1px solid rgba($color: #000000, $alpha: 0.4);
-			font-size: 1.6rem;
-			width: 400px;
-			padding: 10px;
-		}
-
-		&__label {
-			margin-right: 10px;
-		}
-
-		&__select {
-			outline: none;
-		}
+	&__filter > * ~ * {
+		margin-left: 20px;
 	}
 }
