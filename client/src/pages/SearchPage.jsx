@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import PostCard from '../components/PostCard'
 
-import { fetchPosts } from '../redux/post/post.actions'
+import { fetchPosts, SORT_TYPES } from '../redux/post/post.actions'
 
 const SearchPage = () => {
 	const dispatch = useDispatch()
@@ -64,7 +64,9 @@ const SearchPage = () => {
 					{categories &&
 						categories.length > 0 &&
 						categories.map((item) => (
-							<option value={item._id}>{item.name}</option>
+							<option key={item._id} value={item._id}>
+								{item.name}
+							</option>
 						))}
 				</select>
 				<select
@@ -75,7 +77,9 @@ const SearchPage = () => {
 					{subjects &&
 						subjects.length > 0 &&
 						subjects.map((item) => (
-							<option value={item._id}>{item.name}</option>
+							<option key={item._id} value={item._id}>
+								{item.name}
+							</option>
 						))}
 				</select>
 				<select value={type} onChange={(e) => setType(e.target.value)}>
@@ -83,14 +87,16 @@ const SearchPage = () => {
 					{types &&
 						types.length > 0 &&
 						types.map((item) => (
-							<option value={item._id}>{item.name}</option>
+							<option key={item._id} value={item._id}>
+								{item.name}
+							</option>
 						))}
 				</select>
 				<select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
 					<option value=''>Sắp xếp theo</option>
-					<option value='mostViewed'>Xem nhiều nhất</option>
-					<option value='newest'>Mới nhất</option>
-					<option value='oldest'>Cũ nhất</option>
+					<option value={SORT_TYPES.MOSTVIEWED}>Xem nhiều nhất</option>
+					<option value={SORT_TYPES.NEWEST}>Mới nhất</option>
+					<option value={SORT_TYPES.OLDEST}>Cũ nhất</option>
 				</select>
 				<button onClick={handleSubmit}>Áp dụng</button>
 			</div>

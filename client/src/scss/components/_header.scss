@@ -1,6 +1,12 @@
 .header {
 	background-color: $white-color;
 
+	&__wrapper {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
 	&__logo {
 		height: 45px;
 
@@ -99,10 +105,4 @@
 			color: rgba($color: #000000, $alpha: 0.8);
 		}
 	}
-}
-
-.container {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
 }

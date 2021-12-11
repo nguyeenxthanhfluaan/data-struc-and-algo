@@ -6,6 +6,7 @@ import { fetchPostById } from '../redux/post/post.actions'
 
 import Marginer from '../components/Marginer'
 import Menu from '../components/Menu'
+import Highlight from 'react-highlight'
 
 const PostDetailPage = () => {
 	const dispatch = useDispatch()
@@ -32,9 +33,7 @@ const PostDetailPage = () => {
 						<div>
 							<h3 className='post-detail__heading'>{post.title}</h3>
 							<Marginer margin='20px' />
-							<div
-								dangerouslySetInnerHTML={{ __html: post.content }}
-							></div>
+							<Highlight innerHTML>{post.content}</Highlight>
 						</div>
 					)}
 				</div>

@@ -1,6 +1,7 @@
 .menu {
 	width: 350px;
 	padding: 0 10px;
+	flex-shrink: 0;
 
 	&__logo {
 		img {

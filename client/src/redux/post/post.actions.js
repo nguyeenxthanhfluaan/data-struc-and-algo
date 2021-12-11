@@ -1,6 +1,12 @@
 import postTypes from './post.type'
 import axios from 'axios'
 
+export const SORT_TYPES = {
+	NEWEST: 'NEWEST',
+	OLDEST: 'OLDEST',
+	MOSTVIEWED: 'MOSTVIEWED',
+}
+
 export const fetchPosts =
 	({
 		category = null,
@@ -20,15 +26,15 @@ export const fetchPosts =
 			let asc = true
 
 			switch (sortBy) {
-				case 'newest':
+				case SORT_TYPES.NEWEST:
 					sort = 'lastModified'
 					asc = false
 					break
-				case 'oldest':
+				case SORT_TYPES.OLDEST:
 					sort = 'lastModified'
 					asc = true
 					break
-				case 'mostViewed':
+				case SORT_TYPES.MOSTVIEWED:
 					sort = 'lastModified'
 					asc = false
 					break
