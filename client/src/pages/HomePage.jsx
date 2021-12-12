@@ -12,13 +12,13 @@ const Homepage = () => {
 	const dispatch = useDispatch()
 
 	useEffect(() => {
-		dispatch(fetchPosts({ sortBy: SORT_TYPES.NEWEST }))
+		dispatch(fetchPosts({ sort: SORT_TYPES.NEWEST }))
 	}, [])
 
 	return (
 		<div className='homepage'>
 			<Marginer margin='30px' />
-			<List title='Bài viết mới' data={posts} />
+			<List title='Bài viết mới nhất' data={posts} />
 		</div>
 	)
 }

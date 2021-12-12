@@ -10,7 +10,7 @@ html {
 }
 
 body {
-	font-family: 'Poppins', sans-serif;
+	font-family: 'Lora', sans-serif;
 	font-size: 1.6rem;
 }
 
@@ -23,8 +23,9 @@ img {
 	max-width: 100%;
 }
 
-ul {
-	list-style-type: none;
+ul,
+ol {
+	list-style-position: inside;
 }
 
 .grid {

@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
-import PostCard from '../components/PostCard'
+import { useLocation } from 'react-router-dom'
+
+import List from '../components/List'
+import Marginer from '../components/Marginer'
 
 import { fetchPosts, SORT_TYPES } from '../redux/post/post.actions'
 
 const SearchPage = () => {
 	const dispatch = useDispatch()
 
-	const { keyword } = useParams()
+	const { search } = useLocation()
 
-	const [newKeyWord, setNewKeyWord] = useState('')
+	const params = new URLSearchParams(search)
+
+	const [keyword, setKeyword] = useState('')
 
 	const [category, setCategory] = useState('')
 
@@ -18,7 +22,7 @@ const SearchPage = () => {
 
 	const [type, setType] = useState('')
 
-	const [sortBy, setSortBy] = useState('')
+	const [sort, setSort] = useState('')
 
 	const { posts, categories, subjects, types } = useSelector(
 		({ post, category, subject, type }) => ({
@@ -30,21 +34,29 @@ const SearchPage = () => {
 	)
 
 	useEffect(() => {
-		dispatch(fetchPosts({ keyword }))
-	}, [keyword])
+		if (params.get('keyword')) {
+			setKeyword(params.get('keyword'))
+		}
+		if (params.get('category')) {
+			setCategory(params.get('category'))
+		}
+		if (params.get('subject')) {
+			setSubject(params.get('subject'))
+		}
+
+		dispatch(
+			fetchPosts({
+				keyword: params.get('keyword'),
+				category: params.get('category'),
+				subject: params.get('subject'),
+			})
+		)
+	}, [search])
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
 
-		dispatch(
-			fetchPosts({ keyword: newKeyWord, category, subject, sortBy, type })
-		)
-
-		console.log({ newKeyWord })
-		console.log({ category })
-		console.log({ subject })
-		console.log({ sortBy })
-		console.log({ type })
+		dispatch(fetchPosts({ keyword, category, subject, sort, type }))
 	}
 
 	return (
@@ -53,8 +65,8 @@ const SearchPage = () => {
 				<input
 					type='text'
 					placeholder='Nhập để tìm kiếm'
-					value={newKeyWord}
-					onChange={(e) => setNewKeyWord(e.target.value)}
+					value={keyword}
+					onChange={(e) => setKeyword(e.target.value)}
 				/>
 				<select
 					value={category}
@@ -92,17 +104,26 @@ const SearchPage = () => {
 							</option>
 						))}
 				</select>
-				<select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+				<select value={sort} onChange={(e) => setSort(e.target.value)}>
 					<option value=''>Sắp xếp theo</option>
+					<option value={SORT_TYPES.RELEVANT}>Liên quan nhất</option>
 					<option value={SORT_TYPES.MOSTVIEWED}>Xem nhiều nhất</option>
 					<option value={SORT_TYPES.NEWEST}>Mới nhất</option>
 					<option value={SORT_TYPES.OLDEST}>Cũ nhất</option>
 				</select>
 				<button onClick={handleSubmit}>Áp dụng</button>
 			</div>
-			{posts &&
-				posts.length > 0 &&
-				posts.map((post) => <PostCard key={post._id} post={post} />)}
+			<Marginer margin={'20px'} />
+			{posts && posts.length > 0 && (
+				<List
+					title={
+						keyword
+							? `Kết quả tìm kiếm của <q>${keyword}</q>`
+							: 'Danh sách bài viết'
+					}
+					data={posts}
+				/>
+			)}
 		</div>
 	)
 }

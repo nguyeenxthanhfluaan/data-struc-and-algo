@@ -31,7 +31,7 @@ function App() {
 				<Switch>
 					<Route path='/' exact component={HomePage} />
 					<Route path='/post/:id' exact component={PostDetailPage} />
-					<Route path='/search/:keyword?' exact component={SearchPage} />
+					<Route path='/search/' exact component={SearchPage} />
 				</Switch>
 			</div>
 			<Footer />

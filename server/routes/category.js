@@ -31,7 +31,7 @@ router.get('/:id', async (req, res) => {
 // @route   POST api/category
 // @desc    Create a new category
 // @access  Private
-router.post('/', auth, async (req, res) => {
+router.post('/', async (req, res) => {
 	try {
 		const category = new Category({
 			name: req.body.name,
@@ -48,7 +48,7 @@ router.post('/', auth, async (req, res) => {
 // @route   PUT api/category/:id
 // @desc    Update category
 // @access  Private
-router.put('/:id', auth, async (req, res) => {
+router.put('/:id', async (req, res) => {
 	try {
 		const category = await Category.findById(req.params.id)
 		category.name = req.body.name

@@ -19,4 +19,8 @@
 			margin-left: -10px;
 		}
 	}
+
+	&__wrapper > * ~ * {
+		margin-top: 30px;
+	}
 }

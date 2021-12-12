@@ -1,7 +1,40 @@
 .post-detail {
-	padding: 20px;
+	display: flex;
 
-	&__heading {
-		text-align: center;
+	&__menu {
+		flex-shrink: 0;
+	}
+
+	&__content {
+		flex-grow: 1;
+		padding: 20px;
+
+		&__header {
+			&__path {
+				a {
+					color: $main-color;
+				}
+			}
+			&__title {
+				text-transform: capitalize;
+				font-size: 2rem;
+				font-weight: 600;
+				text-align: center;
+				color: $main-color;
+			}
+			&__info {
+				display: flex;
+				justify-content: space-between;
+				font-size: 1.4rem;
+
+				&__date {
+				}
+				&__view {
+					&__icon {
+						margin-right: 5px;
+					}
+				}
+			}
+		}
 	}
 }

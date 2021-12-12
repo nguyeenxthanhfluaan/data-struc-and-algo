@@ -1,6 +1,5 @@
 .menu {
-	width: 350px;
-	padding: 0 10px;
+	width: 300px;
 	flex-shrink: 0;
 
 	&__logo {
@@ -14,6 +13,7 @@
 
 	&__list {
 		background-color: #eee;
+		list-style-type: none;
 
 		&__item {
 			&__heading {

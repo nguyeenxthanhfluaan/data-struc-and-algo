@@ -2,9 +2,10 @@ import postTypes from './post.type'
 import axios from 'axios'
 
 export const SORT_TYPES = {
-	NEWEST: 'NEWEST',
-	OLDEST: 'OLDEST',
-	MOSTVIEWED: 'MOSTVIEWED',
+	NEWEST: 'newest',
+	OLDEST: 'oldest',
+	MOSTVIEWED: 'mostViewed',
+	RELEVANT: 'relevant',
 }
 
 export const fetchPosts =
@@ -13,7 +14,7 @@ export const fetchPosts =
 		keyword = null,
 		subject = null,
 		type = null,
-		sortBy = null,
+		sort = null,
 	}) =>
 	async (dispatch) => {
 		try {
@@ -22,54 +23,19 @@ export const fetchPosts =
 				payload: [],
 			})
 
-			let sort = ''
-			let asc = true
-
-			switch (sortBy) {
-				case SORT_TYPES.NEWEST:
-					sort = 'lastModified'
-					asc = false
-					break
-				case SORT_TYPES.OLDEST:
-					sort = 'lastModified'
-					asc = true
-					break
-				case SORT_TYPES.MOSTVIEWED:
-					sort = 'lastModified'
-					asc = false
-					break
-			}
-
-			if (keyword) {
-				const result = await axios.get('/api/post/search', {
-					params: {
-						category,
-						keyword,
-						subject,
-						type,
-						sort,
-						asc,
-					},
-				})
-				dispatch({
-					type: postTypes.SET_POSTS,
-					payload: result.data,
-				})
-			} else {
-				const result = await axios.get('/api/post', {
-					params: {
-						category,
-						subject,
-						type,
-						sort,
-						asc,
-					},
-				})
-				dispatch({
-					type: postTypes.SET_POSTS,
-					payload: result.data,
-				})
-			}
+			const result = await axios.get('/api/post/', {
+				params: {
+					category,
+					keyword,
+					subject,
+					type,
+					sort,
+				},
+			})
+			dispatch({
+				type: postTypes.SET_POSTS,
+				payload: result.data,
+			})
 		} catch (error) {
 			console.log(error)
 		}
