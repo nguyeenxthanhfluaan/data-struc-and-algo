@@ -1,5 +1,6 @@
 import postTypes from './post.type'
 import axios from 'axios'
+import { nanoid } from 'nanoid/non-secure'
 
 export const SORT_TYPES = {
 	NEWEST: 'newest',
@@ -48,5 +49,41 @@ export const fetchPostById = (id) => async (dispatch) => {
 	} catch (error) {
 		console.log(error)
 		dispatch({ type: postTypes.SET_POST, payload: null })
+	}
+}
+
+export const fetchSearchSuggestion = (keyword) => async (dispatch) => {
+	try {
+		const id = nanoid(10)
+		dispatch({
+			type: postTypes.LOAD_SEARCH_SUGGESTION,
+			payload: id,
+		})
+
+		if (!keyword) {
+			return dispatch({
+				type: postTypes.HANDLE_SEARCH_SUGGESTION,
+				payload: {
+					id,
+					data: null,
+				},
+			})
+		}
+
+		const { data } = await axios.get('/api/search-suggestion', {
+			params: {
+				keyword,
+			},
+		})
+
+		dispatch({
+			type: postTypes.HANDLE_SEARCH_SUGGESTION,
+			payload: {
+				id,
+				data,
+			},
+		})
+	} catch (error) {
+		console.log(error)
 	}
 }

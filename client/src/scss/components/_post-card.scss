@@ -46,8 +46,22 @@
 			}
 		}
 
-		&__date {
-			margin-right: 20px;
+		&__info {
+			font-size: 1.4rem;
+
+			&__date {
+				display: inline-block;
+			}
+
+			&__view {
+				display: inline-block;
+				margin-right: 20px;
+
+				&__icon {
+					font-size: 1.2rem;
+					margin-right: 4px;
+				}
+			}
 		}
 	}
 

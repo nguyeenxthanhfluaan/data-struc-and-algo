@@ -45,7 +45,7 @@ router.post('/', async (req, res) => {
 				res.status(400).send('Bad Data')
 			}
 
-			const token = jwt.sign({ user: user._id }, 'mysecret', {
+			const token = jwt.sign({ user: user._id }, process.env.JWT_SECRET, {
 				expiresIn: maxAge,
 			})
 

@@ -1,25 +1,55 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import Logo from '../assets/images/logo2.png'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRight, faSearch } from '@fortawesome/free-solid-svg-icons'
+import axios from 'axios'
+import { fetchSearchSuggestion } from '../redux/post/post.actions'
 
 const Header = () => {
+	const dispatch = useDispatch()
+
 	const history = useHistory()
+
+	const searchSuggestionRef = useRef()
 
 	const [keyword, setKeyword] = useState('')
 
-	const { categories, subjects } = useSelector(({ category, subject }) => ({
-		categories: category.categories,
-		subjects: subject.subjects,
-	}))
+	const { categories, subjects, searchSuggestion, isLoadingsearchSuggestion } =
+		useSelector(({ category, subject, post }) => ({
+			categories: category.categories,
+			subjects: subject.subjects,
+			searchSuggestion: post.searchSuggestion,
+			isLoadingsearchSuggestion: post.isLoadingsearchSuggestion,
+		}))
 
 	const handleSearch = (e) => {
 		e.preventDefault()
 		history.push(`/search?keyword=${keyword}`)
+	}
+
+	const handleChangeSearchKeyword = (e) => {
+		setKeyword(e.target.value)
+		dispatch(fetchSearchSuggestion(e.target.value))
+	}
+
+	const handleFocusInput = () => {
+		if (searchSuggestionRef.current) {
+			searchSuggestionRef.current.classList.add('active')
+		}
+	}
+
+	const handleBlurInput = () => {
+		if (searchSuggestionRef.current) {
+			searchSuggestionRef.current.classList.remove('active')
+		}
+	}
+
+	const handleClickSearchSuggestion = (id) => {
+		return history.push(`/post/${id}`)
 	}
 
 	return (
@@ -36,7 +66,7 @@ const Header = () => {
 						<li className='header__menu__item'>
 							<Link to='/'>Trang chủ</Link>
 						</li>
-						<div className='header__menu__item'>
+						<li className='header__menu__item'>
 							Danh Mục
 							<ul className='header__menu__list lv1'>
 								{categories &&
@@ -70,18 +100,96 @@ const Header = () => {
 										</li>
 									))}
 							</ul>
-						</div>
+						</li>
 						<li className='header__menu__item'>Liên Hệ</li>
 					</ul>
 					<form className='header__search' onSubmit={handleSearch}>
-						<input
-							type='search'
-							className='header__search__input'
-							placeholder='Nhập từ khóa'
-							value={keyword}
-							onChange={(e) => setKeyword(e.target.value)}
-						/>
-						<button type='submit' className='header__search__icon'>
+						<div className='header__search__box'>
+							<input
+								type='search'
+								value={keyword}
+								onBlur={handleBlurInput}
+								onFocus={handleFocusInput}
+								placeholder='Nhập từ khóa'
+								onChange={handleChangeSearchKeyword}
+								className='header__search__box__input'
+							/>
+							<div
+								ref={searchSuggestionRef}
+								className='header__search__box__suggestion'
+							>
+								<ul className='header__search__box__suggestion__list'>
+									{isLoadingsearchSuggestion && (
+										<li className='header__search__box__suggestion__list__item disabled'>
+											<h6 className='header__search__box__suggestion__list__item__title'>
+												Đang tải . . .
+											</h6>
+										</li>
+									)}
+									{!isLoadingsearchSuggestion &&
+										searchSuggestion &&
+										searchSuggestion.length === 0 && (
+											<li className='header__search__box__suggestion__list__item disabled'>
+												<h6 className='header__search__box__suggestion__list__item__title'>
+													Không tìm thấy
+												</h6>
+											</li>
+										)}
+									{!isLoadingsearchSuggestion &&
+										searchSuggestion &&
+										searchSuggestion.length > 0 &&
+										searchSuggestion.map((item) => (
+											<li
+												key={item._id}
+												onClick={() =>
+													handleClickSearchSuggestion(item._id)
+												}
+												className='header__search__box__suggestion__list__item'
+											>
+												{/* <Link to={`/post/${item._id}`}> */}
+												<h6 className='header__search__box__suggestion__list__item__title'>
+													{item.title}
+												</h6>
+												<div className='header__search__box__suggestion__list__item__icon'>
+													<FontAwesomeIcon icon={faArrowRight} />
+												</div>
+												{/* </Link> */}
+											</li>
+										))}
+									{/* <li className='header__search__box__suggestion__list__item'>
+										<h6 className='header__search__box__suggestion__list__item__title'>
+											Lorem ipsum dolor sit amet consectetur
+											adipisicing elit. Dolor, quaerat!
+										</h6>
+										<div className='header__search__box__suggestion__list__item__content'>
+											Lorem ipsum dolor sit amet consectetur
+											adipisicing elit. Iusto, sequi!
+										</div>
+									</li>
+									<li className='header__search__box__suggestion__list__item'>
+										<h6 className='header__search__box__suggestion__list__item__title'>
+											Lorem ipsum dolor sit amet consectetur
+											adipisicing elit. Dolor, quaerat!
+										</h6>
+										<div className='header__search__box__suggestion__list__item__content'>
+											Lorem ipsum dolor sit amet consectetur
+											adipisicing elit. Iusto, sequi!
+										</div>
+									</li>
+									<li className='header__search__box__suggestion__list__item'>
+										<h6 className='header__search__box__suggestion__list__item__title'>
+											Lorem ipsum dolor sit amet consectetur
+											adipisicing elit. Dolor, quaerat!
+										</h6>
+										<div className='header__search__box__suggestion__list__item__content'>
+											Lorem ipsum dolor sit amet consectetur
+											adipisicing elit. Iusto, sequi!
+										</div>
+									</li> */}
+								</ul>
+							</div>
+						</div>
+						<button type='submit' className='header__search__btn'>
 							<FontAwesomeIcon icon={faSearch} />
 						</button>
 					</form>

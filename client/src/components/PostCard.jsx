@@ -5,6 +5,9 @@ import img from '../assets/images/hero.png'
 
 import { parse, format } from 'date-format-parse'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEye } from '@fortawesome/free-solid-svg-icons'
+
 const PostCard = ({ post }) => {
 	if (!post) {
 		return null
@@ -21,22 +24,20 @@ const PostCard = ({ post }) => {
 				<Link to={`/post/${post._id}`}>
 					<h4 className='post-card__header__title'>{post.title}</h4>
 				</Link>
-				<time className='post-card__header__date'>
-					{format(new Date(post.lastModified), 'DD-MM-YYYY')}{' '}
-				</time>
+				<div className='post-card__header__info'>
+					<div className='post-card__header__info__view'>
+						<FontAwesomeIcon
+							icon={faEye}
+							className='post-card__header__info__view__icon'
+						/>
+						<span>{post.viewCount}</span>
+					</div>
+					<time className='post-card__header__info__date'>
+						{format(new Date(post.lastModified), 'DD-MM-YYYY')}{' '}
+					</time>
+				</div>
 			</div>
-			<p className='post-card__desc'>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita!
-				Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quis,
-				aspernatur! Lorem ipsum dolor sit, amet consectetur adipisicing
-				elit. Rem reiciendis consequatur perspiciatis maxime ut esse natus
-				aut, facere odit temporibus sit animi? Qui placeat delectus labore
-				iu Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil
-				nemo distinctio fugiat est explicabo saepe amet enim iste voluptatem
-				veniam Lorem ipsum dolor sit amet consectetur adipisicing elit.
-				Nulla ut recusandae sapiente quam quasi, quo culpa eum excepturi
-				assumenda soluta?
-			</p>
+			<p className='post-card__desc'>{post.description}</p>
 		</div>
 	)
 }

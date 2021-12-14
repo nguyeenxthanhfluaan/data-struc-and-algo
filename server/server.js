@@ -1,10 +1,14 @@
 const express = require('express')
-const connectDb = require('./config/db')
+require('dotenv').config()
 const multer = require('multer')
 const cookieParser = require('cookie-parser')
+
+const connectDb = require('./config/db')
 const { cloudinary } = require('./config/cloudinary')
+
 const path = require('path')
 
+// Initialize app
 const app = express()
 
 const upload = multer()
@@ -50,7 +54,6 @@ if (process.env.NODE_ENV === 'production') {
 	app.use(express.static('../client/build'))
 	app.get('*', (req, res) => {
 		console.log(__dirname)
-		// res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
 		res.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html'))
 	})
 }
