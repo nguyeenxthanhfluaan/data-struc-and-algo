@@ -1,25 +1,65 @@
 import postTypes from './post.type'
 
 const initialState = {
-	posts: null, // normal value = []
-	isLoadingPosts: true,
+	posts: [],
+	isLoadingPosts: false,
+	errorLoadPosts: '',
+	isLastPage: false,
 
-	post: null, // normal value = {}
+	post: {},
 	isLoadingPost: true,
 
-	searchSuggestion: null, // normal value = []
+	searchSuggestion: [],
 	isLoadingsearchSuggestion: false,
 	searchSuggestionId: '',
 }
 
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
+		case postTypes.SET_LOADING_POSTS:
+			return {
+				...state,
+				isLoadingPosts: true,
+				errorLoadPosts: '',
+			}
+		case postTypes.APPEND_POSTS:
+			return {
+				...state,
+				isLoadingPosts: false,
+				posts: [...state.posts, ...action.payload],
+				errorLoadPosts: '',
+				isLastPage: false,
+			}
 		case postTypes.SET_POSTS:
 			return {
 				...state,
 				posts: action.payload,
 				isLoadingPosts: false,
+				errorLoadPosts: '',
+				isLastPage: false,
 			}
+		case postTypes.SET_LAST_PAGE:
+			return {
+				...state,
+				isLoadingPosts: false,
+				isLastPage: true,
+			}
+		case postTypes.SET_ERROR_LOAD_POSTS:
+			return {
+				...state,
+				isLoadingPosts: false,
+				isLastPage: false,
+				errorLoadPosts: 'Lỗi tải trang',
+			}
+		case postTypes.CLEAR_POSTS:
+			return {
+				...state,
+				posts: [],
+				isLoadingPosts: false,
+				errorLoadPosts: '',
+				isLastPage: false,
+			}
+
 		case postTypes.SET_POST:
 			return {
 				...state,

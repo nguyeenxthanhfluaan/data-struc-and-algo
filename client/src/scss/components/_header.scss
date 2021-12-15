@@ -1,7 +1,6 @@
 .header {
 	background-color: $white-color;
 	box-shadow: 1px 1px 6px #c5c5c5;
-	margin-bottom: 20px;
 
 	&__wrapper {
 		display: flex;
@@ -11,22 +10,22 @@
 	}
 
 	&__logo {
+		display: flex;
+		align-items: center;
 		height: 45px;
 
 		&__img {
-			width: 40px;
-			height: auto;
+			width: auto;
+			height: 100%;
 			object-fit: contain;
-			margin-bottom: -14px;
-			margin-right: 8px;
+			margin-right: 10px;
 		}
 
 		&__text {
-			height: 100px;
 			font-size: 2rem;
 			font-weight: 600;
 			font-family: 'Courier New', Courier, monospace;
-			color: #009ad3;
+			color: $main-color;
 		}
 	}
 
@@ -147,6 +146,7 @@
 				color: $black-color;
 				z-index: 99;
 				border: 1px solid #ccc;
+				border-top: none;
 
 				&.active {
 					display: block;
@@ -160,6 +160,10 @@
 						justify-content: space-between;
 						padding: 10px;
 						cursor: pointer;
+
+						&:first-child {
+							border-top: 1px solid #ccc;
+						}
 
 						&:hover {
 							background-color: #ccc;

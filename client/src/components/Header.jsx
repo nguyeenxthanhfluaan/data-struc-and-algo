@@ -2,12 +2,12 @@ import React, { useState, useRef, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
-import Logo from '../assets/images/logo2.png'
+import Logo from '../assets/images/logo.png'
+
+import { fetchSearchSuggestion } from '../redux/post/post.actions'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight, faSearch } from '@fortawesome/free-solid-svg-icons'
-import axios from 'axios'
-import { fetchSearchSuggestion } from '../redux/post/post.actions'
 
 const Header = () => {
 	const dispatch = useDispatch()
@@ -49,6 +49,7 @@ const Header = () => {
 	}
 
 	const handleClickSearchSuggestion = (id) => {
+		console.log('go')
 		return history.push(`/post/${id}`)
 	}
 
@@ -56,12 +57,10 @@ const Header = () => {
 		<header className='header'>
 			<div className='container'>
 				<div className='header__wrapper'>
-					<div className='header__logo'>
-						<Link to='/'>
-							<img src={Logo} alt='' className='header__logo__img' />
-							<span className='header__logo__text'>Data Structure</span>
-						</Link>
-					</div>
+					<Link to='/' className='header__logo'>
+						<img src={Logo} alt='' className='header__logo__img' />
+						<span className='header__logo__text'>Data Structure</span>
+					</Link>
 					<ul className='header__menu'>
 						<li className='header__menu__item'>
 							<Link to='/'>Trang chủ</Link>
@@ -141,51 +140,19 @@ const Header = () => {
 										searchSuggestion.map((item) => (
 											<li
 												key={item._id}
-												onClick={() =>
+												onMouseDown={() =>
 													handleClickSearchSuggestion(item._id)
 												}
 												className='header__search__box__suggestion__list__item'
 											>
-												{/* <Link to={`/post/${item._id}`}> */}
 												<h6 className='header__search__box__suggestion__list__item__title'>
 													{item.title}
 												</h6>
 												<div className='header__search__box__suggestion__list__item__icon'>
 													<FontAwesomeIcon icon={faArrowRight} />
 												</div>
-												{/* </Link> */}
 											</li>
 										))}
-									{/* <li className='header__search__box__suggestion__list__item'>
-										<h6 className='header__search__box__suggestion__list__item__title'>
-											Lorem ipsum dolor sit amet consectetur
-											adipisicing elit. Dolor, quaerat!
-										</h6>
-										<div className='header__search__box__suggestion__list__item__content'>
-											Lorem ipsum dolor sit amet consectetur
-											adipisicing elit. Iusto, sequi!
-										</div>
-									</li>
-									<li className='header__search__box__suggestion__list__item'>
-										<h6 className='header__search__box__suggestion__list__item__title'>
-											Lorem ipsum dolor sit amet consectetur
-											adipisicing elit. Dolor, quaerat!
-										</h6>
-										<div className='header__search__box__suggestion__list__item__content'>
-											Lorem ipsum dolor sit amet consectetur
-											adipisicing elit. Iusto, sequi!
-										</div>
-									</li>
-									<li className='header__search__box__suggestion__list__item'>
-										<h6 className='header__search__box__suggestion__list__item__title'>
-											Lorem ipsum dolor sit amet consectetur
-											adipisicing elit. Dolor, quaerat!
-										</h6>
-										<div className='header__search__box__suggestion__list__item__content'>
-											Lorem ipsum dolor sit amet consectetur
-											adipisicing elit. Iusto, sequi!
-										</div>
-									</li> */}
 								</ul>
 							</div>
 						</div>

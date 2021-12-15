@@ -14,13 +14,33 @@ const search = require('../utilities/search')
 // @access  Public
 router.get('/', async (req, res) => {
 	try {
-		const { keyword, subject, type, category, sort } = req.query
+		const { keyword, subject, type, category, sort, skip, limit } = req.query
 
-		console.log({ keyword, subject, type, category, sort })
+		const skipNumber = parseInt(skip)
+		const limitNumber = parseInt(limit)
 
-		const result = await search({ keyword, subject, type, category, sort })
+		console.log({
+			keyword,
+			subject,
+			type,
+			category,
+			sort,
+			skip: skipNumber,
+			limit: limitNumber,
+		})
+
+		const result = await search({
+			keyword,
+			subject,
+			type,
+			category,
+			sort,
+			skip: skipNumber,
+			limit: limitNumber,
+		})
 
 		res.json(result)
+		// res.sendStatus(500)
 	} catch (error) {
 		console.log(error)
 		res.sendStatus(500)

@@ -1,0 +1,21 @@
+.infinity-list {
+	background-color: $white-color;
+
+	&__loading {
+		height: 80px;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	&__error {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding-bottom: 20px;
+
+		&__title {
+		}
+	}
+}

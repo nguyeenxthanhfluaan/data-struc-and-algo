@@ -1,6 +1,9 @@
 .list {
 	width: 100%;
 	position: relative;
+	padding: 20px 30px;
+	background-color: $white-color;
+	overflow: hidden;
 
 	&__title {
 		display: inline-block;
@@ -20,7 +23,12 @@
 		}
 	}
 
-	&__wrapper > * ~ * {
-		margin-top: 30px;
+	&__wrapper {
+		width: 100%;
+		overflow: hidden;
+
+		& > * ~ * {
+			margin-top: 30px;
+		}
 	}
 }

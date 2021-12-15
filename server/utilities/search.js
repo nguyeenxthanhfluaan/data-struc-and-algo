@@ -31,7 +31,15 @@ const handleSortString = (sortBy) => {
 	return result
 }
 
-const search = async ({ keyword, subject, type, category, sort }) => {
+const search = async ({
+	keyword,
+	subject,
+	type,
+	category,
+	sort,
+	skip,
+	limit,
+}) => {
 	let aggregateQuery = []
 
 	let $match = {}
@@ -116,6 +124,18 @@ const search = async ({ keyword, subject, type, category, sort }) => {
 			content: 0,
 		},
 	})
+
+	if (skip) {
+		aggregateQuery.push({
+			$skip: skip,
+		})
+	}
+
+	if (limit) {
+		aggregateQuery.push({
+			$limit: limit,
+		})
+	}
 
 	try {
 		return await Post.aggregate(aggregateQuery)

@@ -16,12 +16,17 @@ export const fetchPosts =
 		subject = null,
 		type = null,
 		sort = null,
+		skip = null,
+		limit = null,
 	}) =>
 	async (dispatch) => {
 		try {
 			dispatch({
 				type: postTypes.SET_POSTS,
 				payload: [],
+			})
+			dispatch({
+				type: postTypes.SET_LOADING_POSTS,
 			})
 
 			const result = await axios.get('/api/post/', {
@@ -31,16 +36,73 @@ export const fetchPosts =
 					subject,
 					type,
 					sort,
+					skip,
+					limit,
 				},
 			})
+
 			dispatch({
 				type: postTypes.SET_POSTS,
 				payload: result.data,
 			})
 		} catch (error) {
 			console.log(error)
+			dispatch({
+				type: postTypes.SET_ERROR_LOAD_POSTS,
+			})
 		}
 	}
+
+export const appendPosts =
+	({
+		category = null,
+		keyword = null,
+		subject = null,
+		type = null,
+		sort = null,
+		skip = null,
+		limit = null,
+	}) =>
+	async (dispatch) => {
+		try {
+			dispatch({
+				type: postTypes.SET_LOADING_POSTS,
+			})
+
+			const { data } = await axios.get('/api/post/', {
+				params: {
+					category,
+					keyword,
+					subject,
+					type,
+					sort,
+					skip,
+					limit,
+				},
+			})
+
+			if (data && data.length > 0) {
+				dispatch({
+					type: postTypes.APPEND_POSTS,
+					payload: data,
+				})
+			} else {
+				dispatch({
+					type: postTypes.SET_LAST_PAGE,
+					payload: data,
+				})
+			}
+		} catch (error) {
+			console.log(error)
+			dispatch({
+				type: postTypes.SET_ERROR_LOAD_POSTS,
+			})
+		}
+	}
+
+export const clearPosts = () => ({
+	type: postTypes.CLEAR_POSTS,
+})
 
 export const fetchPostById = (id) => async (dispatch) => {
 	try {

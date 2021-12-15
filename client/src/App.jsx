@@ -14,6 +14,7 @@ import HomePage from './pages/HomePage'
 import PostDetailPage from './pages/PostDetailPage'
 import SearchPage from './pages/SearchPage'
 import { fetchTypes } from './redux/type/type.actions'
+import Marginer from './components/Marginer'
 
 function App() {
 	const dispatch = useDispatch()
@@ -27,6 +28,7 @@ function App() {
 	return (
 		<BrowserRouter>
 			<Header />
+			<Marginer margin={'50px'} />
 			<div className='container'>
 				<Switch>
 					<Route path='/' exact component={HomePage} />
@@ -34,6 +36,7 @@ function App() {
 					<Route path='/search/' exact component={SearchPage} />
 				</Switch>
 			</div>
+			<Marginer margin={'50px'} />
 			<Footer />
 		</BrowserRouter>
 	)

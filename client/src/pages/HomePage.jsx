@@ -1,24 +1,11 @@
-import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { fetchPost, fetchPosts, SORT_TYPES } from '../redux/post/post.actions'
+import React from 'react'
 
-import Menu from '../components/Menu'
-import List from '../components/List'
-import Marginer from '../components/Marginer'
+import InfinityList from '../components/InfinityPostList'
 
 const Homepage = () => {
-	const { posts } = useSelector(({ post }) => ({ posts: post.posts }))
-
-	const dispatch = useDispatch()
-
-	useEffect(() => {
-		dispatch(fetchPosts({ sort: SORT_TYPES.NEWEST }))
-	}, [])
-
 	return (
 		<div className='homepage'>
-			<Marginer margin='30px' />
-			<List title='Bài viết mới nhất' data={posts} />
+			<InfinityList title='Bài viết mới nhất' limit={5} />
 		</div>
 	)
 }

@@ -1,6 +1,7 @@
 .menu {
 	width: 300px;
 	flex-shrink: 0;
+	background-color: #fff;
 
 	&__logo {
 		img {
@@ -30,7 +31,7 @@
 				padding: 4px 10px 4px;
 				user-select: none;
 
-				&.active {
+				&:hover {
 					background-color: #d6d6d6;
 				}
 
