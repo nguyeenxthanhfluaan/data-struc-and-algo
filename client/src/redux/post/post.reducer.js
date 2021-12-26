@@ -1,4 +1,4 @@
-import postTypes from './post.type'
+import postTypes from './post.types'
 
 const initialState = {
 	posts: [],
@@ -10,7 +10,7 @@ const initialState = {
 	isLoadingPost: true,
 
 	searchSuggestion: [],
-	isLoadingsearchSuggestion: false,
+	isLoadingSearchSuggestion: false,
 	searchSuggestionId: '',
 }
 
@@ -69,7 +69,7 @@ const reducer = (state = initialState, action) => {
 		case postTypes.LOAD_SEARCH_SUGGESTION:
 			return {
 				...state,
-				isLoadingsearchSuggestion: true,
+				isLoadingSearchSuggestion: true,
 				searchSuggestionId: action.payload,
 				searchSuggestion: null,
 			}
@@ -77,7 +77,7 @@ const reducer = (state = initialState, action) => {
 			if (state.searchSuggestionId === action.payload.id) {
 				return {
 					...state,
-					isLoadingsearchSuggestion: false,
+					isLoadingSearchSuggestion: false,
 					searchSuggestion: action.payload.data,
 				}
 			} else return state

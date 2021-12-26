@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
 					autocomplete: {
 						query: req.query.keyword,
 						path: 'title',
-						tokenOrder: 'any',
+						tokenOrder: 'sequential',
 					},
 				},
 			},
@@ -27,6 +27,9 @@ router.get('/', async (req, res) => {
 					content: 1,
 					score: { $meta: 'searchScore' },
 				},
+			},
+			{
+				$sort: { score: 1 },
 			},
 		])
 		res.json(result)

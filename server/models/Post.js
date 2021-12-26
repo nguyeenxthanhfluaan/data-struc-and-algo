@@ -18,10 +18,6 @@ const PostSchema = mongoose.Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'Type',
 	},
-	category: {
-		type: Schema.Types.ObjectId,
-		ref: 'Category',
-	},
 	subject: {
 		type: Schema.Types.ObjectId,
 		ref: 'Subject',

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Post = require('../models/Post')
+const SearchKeyword = require('../models/SearchKeyword')
 const ObjectId = mongoose.Types.ObjectId
 
 const handleSortString = (sortBy) => {
@@ -55,13 +56,25 @@ const search = async ({
 					path: {
 						wildcard: '*',
 					},
-					fuzzy: {},
+					// fuzzy: {},
+					score: {
+						boost: {
+							value: 3,
+						},
+					},
 				},
 			},
 		})
+
 		aggregateQuery.push({
 			$addFields: { score: { $meta: 'searchScore' } },
 		})
+
+		await SearchKeyword.findOneAndUpdate(
+			{ keyword },
+			{ $inc: { searchCount: 1 } },
+			{ upsert: true }
+		)
 	}
 
 	aggregateQuery.push({

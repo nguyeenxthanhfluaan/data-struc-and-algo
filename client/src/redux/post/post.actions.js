@@ -1,4 +1,4 @@
-import postTypes from './post.type'
+import postTypes from './post.types'
 import axios from 'axios'
 import { nanoid } from 'nanoid/non-secure'
 
@@ -106,6 +106,7 @@ export const clearPosts = () => ({
 
 export const fetchPostById = (id) => async (dispatch) => {
 	try {
+		dispatch({ type: postTypes.SET_POST, payload: {} })
 		const post = await axios.get(`/api/post/${id}`)
 		dispatch({ type: postTypes.SET_POST, payload: post.data })
 	} catch (error) {

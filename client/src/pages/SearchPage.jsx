@@ -92,7 +92,7 @@ const SearchPage = () => {
 						setSubject('')
 					}}
 				>
-					<option value=''>Chọn category</option>
+					<option value=''>Chọn danh mục</option>
 					{categories &&
 						categories.length > 0 &&
 						categories.map((item) => (
@@ -106,7 +106,7 @@ const SearchPage = () => {
 					className='search__filter__select'
 					onChange={(e) => setSubject(e.target.value)}
 				>
-					<option value=''>Chọn subject</option>
+					<option value=''>Chọn chủ đề</option>
 					{subjects &&
 						subjects.length > 0 &&
 						subjects.map((item) =>
@@ -122,7 +122,7 @@ const SearchPage = () => {
 					className='search__filter__select'
 					onChange={(e) => setType(e.target.value)}
 				>
-					<option value=''>Chọn type</option>
+					<option value=''>Chọn loại</option>
 					{types &&
 						types.length > 0 &&
 						types.map((item) => (

@@ -4,15 +4,14 @@ import PostCard from './PostCard'
 
 const List = ({ title, data }) => {
 	return (
-		<div className='list'>
+		<div className='post-list'>
 			{title && (
-				<h3
-					className='list__title'
-					dangerouslySetInnerHTML={{ __html: title }}
-				></h3>
+				<div className='post-list__title'>
+					<h3 dangerouslySetInnerHTML={{ __html: title }}></h3>
+				</div>
 			)}
 			{title && <Marginer margin='30px' />}
-			<div className='list__wrapper'>
+			<div className='post-list__wrapper'>
 				{data &&
 					data.length > 0 &&
 					data.map((item) => <PostCard post={item} key={item._id} />)}

@@ -6,7 +6,7 @@ import FadeLoader from 'react-spinners/FadeLoader'
 
 import List from './PostList'
 
-const InfinityList = ({ limit, filter = {}, title }) => {
+const InfinityList = ({ limit, filter, title }) => {
 	const dispatch = useDispatch()
 
 	const listRef = useRef(null)
@@ -26,16 +26,15 @@ const InfinityList = ({ limit, filter = {}, title }) => {
 		})
 	)
 
-	// If no filter, initialize list
+	// If no filter
 	useEffect(() => {
 		if (Object.keys(filter).length === 0) {
 			dispatch(fetchPosts({ limit }))
 		}
 	}, [])
 
-	// If there is no condition, this function will run infinity
+	// If there is filter
 	useEffect(() => {
-		console.log({ filter })
 		if (Object.keys(filter).length > 0) {
 			console.log('dispatch trong filter')
 			dispatch(fetchPosts({ limit, keyword, category, subject, sort, type }))
@@ -52,9 +51,7 @@ const InfinityList = ({ limit, filter = {}, title }) => {
 	}, [isLoadingPosts, errorLoadPosts])
 
 	useEffect(() => {
-		if (load && isLastPage === false) {
-			// if (filter) {
-
+		if (load && !errorLoadPosts && isLastPage === false) {
 			dispatch(
 				appendPosts({
 					skip: page * limit,
@@ -88,8 +85,6 @@ const InfinityList = ({ limit, filter = {}, title }) => {
 			window.removeEventListener('scroll', loadData)
 		}
 	}, [])
-	console.log({ load })
-	console.log({ page })
 
 	return (
 		<div ref={listRef} className='infinity-list'>

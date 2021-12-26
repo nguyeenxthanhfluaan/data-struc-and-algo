@@ -72,7 +72,7 @@
 			list-style-type: none;
 			z-index: 99;
 
-			&::after {
+			&.lv1::after {
 				content: '';
 				display: block;
 				position: absolute;
@@ -135,6 +135,10 @@
 				padding: 10px;
 				flex: 1;
 				padding-left: 10px;
+
+				&::-webkit-search-cancel-button {
+					display: none;
+				}
 			}
 
 			&__suggestion {
@@ -142,6 +146,8 @@
 				position: absolute;
 				top: 100%;
 				width: 100%;
+				max-height: 200px;
+				overflow-y: auto;
 				background-color: $white-color;
 				color: $black-color;
 				z-index: 99;
@@ -158,6 +164,7 @@
 					&__item {
 						display: flex;
 						justify-content: space-between;
+						align-items: center;
 						padding: 10px;
 						cursor: pointer;
 
@@ -172,6 +179,12 @@
 						&.disabled {
 							cursor: default;
 							background-color: #fff;
+						}
+
+						&__wrapper {
+							width: 100%;
+							height: 100%;
+							overflow: hidden;
 						}
 
 						&__title,
@@ -189,7 +202,7 @@
 
 						&__icon {
 							font-size: 1.4rem;
-							color: #456bab;
+							color: rgba($color: $main-color, $alpha: 0.7);
 						}
 					}
 				}

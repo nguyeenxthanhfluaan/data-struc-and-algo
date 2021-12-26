@@ -37,7 +37,7 @@ const PostDetailPage = () => {
 	useEffect(() => {
 		dispatch(fetchPostById(id))
 		dispatch(clearPosts())
-	}, [])
+	}, [id])
 
 	useEffect(() => {
 		if (Object.keys(post).length > 0) {
@@ -57,69 +57,75 @@ const PostDetailPage = () => {
 				<div className='post-detail__menu'>
 					<Menu />
 				</div>
-				<div className='post-detail__content'>
-					{isLoading && (
-						<div className='post-detail__content-loading'>
-							<RingLoader color='#cd3300' size={180} />
-						</div>
-					)}
-					{!isLoading && !post && (
-						<div className='post-detail__content-not-found'>
-							<FontAwesomeIcon icon={faExclamationCircle} />
-							<h3>Xin lỗi, bài viết bạn tìm không tồn tại !</h3>
-						</div>
-					)}
-					{!isLoading && post && (
-						<>
-							<div className='post-detail__content__header'>
-								<div className='post-detail__content__header__path'>
-									<Link to={`/`}>
-										<FontAwesomeIcon icon={faHome} />
-									</Link>{' '}
-									<FontAwesomeIcon icon={faChevronRight} />{' '}
-									<Link to={`/search?category=${post.category._id}`}>
-										{post.category.name}
-									</Link>{' '}
-									<FontAwesomeIcon icon={faChevronRight} />{' '}
-									<Link to={`/search?subject=${post.subject._id}`}>
-										{post.subject.name}
-									</Link>
-								</div>
-								<Marginer margin={'10px'} />
-								<h3 className='post-detail__content__header__title'>
-									{post.title}
-								</h3>
-								<div className='post-detail__content__header__info'>
-									<div className='post-detail__content__header__info__date'>
-										<span>
-											Chỉnh sửa lần cuối:{' '}
-											{format(
-												new Date(post.lastModified),
-												'DD-MM-YYYY'
-											)}
-										</span>
-									</div>
-									<div className='post-detail__content__header__info__view'>
-										<FontAwesomeIcon
-											className='post-detail__content__header__info__view__icon'
-											icon={faEye}
-										/>
-										<span>{post.viewCount}</span>
-									</div>
-								</div>
+				{post && Object.keys(post).length > 0 && (
+					<div className='post-detail__content'>
+						{isLoading && (
+							<div className='post-detail__content-loading'>
+								<RingLoader color='#cd3300' size={180} />
 							</div>
-							<Separate direction='horizontal' thickness='2px' />
-							<Marginer margin='20px' />
-							<Highlight innerHTML>{post.content}</Highlight>
-						</>
-					)}
-				</div>
+						)}
+						{!isLoading && !post && (
+							<div className='post-detail__content-not-found'>
+								<FontAwesomeIcon icon={faExclamationCircle} />
+								<h3>Xin lỗi, bài viết bạn tìm không tồn tại !</h3>
+							</div>
+						)}
+						{!isLoading && post && (
+							<>
+								<div className='post-detail__content__header'>
+									<div className='post-detail__content__header__path'>
+										<Link to={`/`}>
+											<FontAwesomeIcon icon={faHome} />
+										</Link>{' '}
+										<FontAwesomeIcon icon={faChevronRight} />{' '}
+										<Link
+											to={`/search?category=${post.category._id}`}
+										>
+											{post.category.name}
+										</Link>{' '}
+										<FontAwesomeIcon icon={faChevronRight} />{' '}
+										<Link to={`/search?subject=${post.subject._id}`}>
+											{post.subject.name}
+										</Link>
+									</div>
+									<Marginer margin={'10px'} />
+									<h3 className='post-detail__content__header__title'>
+										{post.title}
+									</h3>
+									<div className='post-detail__content__header__info'>
+										<div className='post-detail__content__header__info__date'>
+											<span>
+												Chỉnh sửa lần cuối:{' '}
+												{format(
+													new Date(post.lastModified),
+													'DD-MM-YYYY'
+												)}
+											</span>
+										</div>
+										<div className='post-detail__content__header__info__view'>
+											<FontAwesomeIcon
+												className='post-detail__content__header__info__view__icon'
+												icon={faEye}
+											/>
+											<span>{post.viewCount}</span>
+										</div>
+									</div>
+								</div>
+								<Separate direction='horizontal' thickness='2px' />
+								<Marginer margin='20px' />
+								<Highlight innerHTML>{post.content}</Highlight>
+							</>
+						)}
+					</div>
+				)}
 			</div>
 			<Marginer margin={'50px'} />
-			<PostList
-				title='Bài viết liên quan'
-				data={posts.filter((item) => item._id !== post._id)}
-			/>
+			{post && Object.keys(post).length > 0 && (
+				<PostList
+					title='Bài viết liên quan'
+					data={posts.filter((item) => item._id !== post._id)}
+				/>
+			)}
 		</>
 	)
 }

@@ -8,6 +8,7 @@ import { fetchSearchSuggestion } from '../redux/post/post.actions'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { fetchMostSearchedKeyword } from '../redux/keyword/keyword.actions'
 
 const Header = () => {
 	const dispatch = useDispatch()
@@ -18,22 +19,34 @@ const Header = () => {
 
 	const [keyword, setKeyword] = useState('')
 
-	const { categories, subjects, searchSuggestion, isLoadingsearchSuggestion } =
-		useSelector(({ category, subject, post }) => ({
-			categories: category.categories,
-			subjects: subject.subjects,
-			searchSuggestion: post.searchSuggestion,
-			isLoadingsearchSuggestion: post.isLoadingsearchSuggestion,
-		}))
+	const {
+		categories,
+		subjects,
+		searchSuggestion,
+		isLoadingSearchSuggestion,
+		mostSearchedKeywords,
+	} = useSelector(({ category, subject, post, keyword }) => ({
+		categories: category.categories,
+		subjects: subject.subjects,
+		searchSuggestion: post.searchSuggestion,
+		isLoadingSearchSuggestion: post.isLoadingSearchSuggestion,
+		mostSearchedKeywords: keyword.mostSearched,
+	}))
+
+	useEffect(() => {
+		dispatch(fetchMostSearchedKeyword())
+	}, [])
 
 	const handleSearch = (e) => {
 		e.preventDefault()
+		handleBlurInput()
 		history.push(`/search?keyword=${keyword}`)
 	}
 
 	const handleChangeSearchKeyword = (e) => {
 		setKeyword(e.target.value)
 		dispatch(fetchSearchSuggestion(e.target.value))
+		searchSuggestionRef.current.classList.add('active')
 	}
 
 	const handleFocusInput = () => {
@@ -118,14 +131,32 @@ const Header = () => {
 								className='header__search__box__suggestion'
 							>
 								<ul className='header__search__box__suggestion__list'>
-									{isLoadingsearchSuggestion && (
+									{keyword === '' &&
+										mostSearchedKeywords &&
+										mostSearchedKeywords.length > 0 &&
+										mostSearchedKeywords.map((item) => (
+											<li
+												key={item._id}
+												onMouseDown={() => {}}
+												className='header__search__box__suggestion__list__item'
+											>
+												<h6 className='header__search__box__suggestion__list__item__title'>
+													{item.keyword}
+												</h6>
+												<div className='header__search__box__suggestion__list__item__icon'>
+													<FontAwesomeIcon icon={faSearch} />
+												</div>
+											</li>
+										))}
+									{keyword !== '' && isLoadingSearchSuggestion && (
 										<li className='header__search__box__suggestion__list__item disabled'>
 											<h6 className='header__search__box__suggestion__list__item__title'>
 												Đang tải . . .
 											</h6>
 										</li>
 									)}
-									{!isLoadingsearchSuggestion &&
+									{keyword !== '' &&
+										!isLoadingSearchSuggestion &&
 										searchSuggestion &&
 										searchSuggestion.length === 0 && (
 											<li className='header__search__box__suggestion__list__item disabled'>
@@ -134,7 +165,8 @@ const Header = () => {
 												</h6>
 											</li>
 										)}
-									{!isLoadingsearchSuggestion &&
+									{keyword !== '' &&
+										!isLoadingSearchSuggestion &&
 										searchSuggestion &&
 										searchSuggestion.length > 0 &&
 										searchSuggestion.map((item) => (

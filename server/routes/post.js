@@ -5,6 +5,7 @@ const auth = require('../middlewares/auth')
 
 const mongoose = require('mongoose')
 const Post = require('../models/Post')
+const SearchKeyword = require('../models/SearchKeyword')
 const ObjectId = mongoose.Types.ObjectId
 
 const search = require('../utilities/search')
@@ -40,7 +41,6 @@ router.get('/', async (req, res) => {
 		})
 
 		res.json(result)
-		// res.sendStatus(500)
 	} catch (error) {
 		console.log(error)
 		res.sendStatus(500)
@@ -52,21 +52,52 @@ router.get('/', async (req, res) => {
 // @access  Public
 router.get('/:id', async (req, res) => {
 	try {
-		const result = await Post.findByIdAndUpdate(
-			req.params.id,
+		const promise1 = Post.findByIdAndUpdate(req.params.id, {
+			$inc: { viewCount: 1 },
+		})
+
+		const promise2 = Post.aggregate([
 			{
-				$inc: { viewCount: 1 },
+				$match: { _id: ObjectId(req.params.id) },
 			},
-			{ new: true }
-		)
-			.populate({ path: 'type' })
-			.populate({ path: 'category' })
-			.populate({ path: 'subject' })
-		res.json(result)
+			{
+				$set: { viewCount: { $sum: ['$viewCount', 1] } },
+			},
+			{
+				$lookup: {
+					from: 'types',
+					localField: 'type',
+					foreignField: '_id',
+					as: 'type',
+				},
+			},
+			{
+				$lookup: {
+					from: 'subjects',
+					localField: 'subject',
+					foreignField: '_id',
+					as: 'subject',
+				},
+			},
+			{
+				$lookup: {
+					from: 'categories',
+					localField: 'subject.category',
+					foreignField: '_id',
+					as: 'category',
+				},
+			},
+			{ $unwind: '$subject' },
+			{ $unwind: '$category' },
+			{ $unwind: '$type' },
+		])
+
+		const values = await Promise.all([promise1, promise2])
+
+		res.json(values[1][0])
 	} catch (error) {
 		console.log(error)
 		res.status(500).send('Server Error')
-		console.log(req.params)
 	}
 })
 
