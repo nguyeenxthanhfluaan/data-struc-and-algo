@@ -54,17 +54,4 @@ router.delete('/:id', async (req, res) => {
 	}
 })
 
-// // @route   DELETE api/type
-// // @desc    Delete all types
-// // @access  Private
-// router.delete('/', async (req, res) => {
-// 	try {
-// 		await Type.deleteMany()
-// 		res.send('delete all type success')
-// 	} catch (error) {
-// 		console.log(error)
-// 		res.status(500).send('Server Error')
-// 	}
-// })
-
 module.exports = router

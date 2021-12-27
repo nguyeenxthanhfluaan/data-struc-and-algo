@@ -101,7 +101,7 @@ const Header = () => {
 																className='header__menu__list__item lv2'
 															>
 																<Link
-																	to={`/search?subject=${item2._id}`}
+																	to={`/search?category=${item1._id}&subject=${item2._id}`}
 																>
 																	{item2.name}
 																</Link>

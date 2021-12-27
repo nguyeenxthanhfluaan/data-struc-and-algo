@@ -1,20 +1,22 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
+
 import './scss/index.scss'
+import 'react-chatbot-kit/build/main.css'
+import './chatbot/styles.scss'
 
 import { fetchCategory } from './redux/category/category.actions'
 import { fetchSubject } from './redux/subject/subject.actions'
 
 import Header from './components/Header'
 import Footer from './components/Footer'
-import Menu from './components/Menu'
+import Marginer from './components/Marginer'
 
 import HomePage from './pages/HomePage'
 import PostDetailPage from './pages/PostDetailPage'
 import SearchPage from './pages/SearchPage'
 import { fetchTypes } from './redux/type/type.actions'
-import Marginer from './components/Marginer'
 
 function App() {
 	const dispatch = useDispatch()

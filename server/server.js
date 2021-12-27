@@ -27,6 +27,7 @@ app.use('/api/post', require('./routes/post'))
 app.use('/api/category', require('./routes/category'))
 app.use('/api/subject', require('./routes/subject'))
 app.use('/api/type', require('./routes/type'))
+app.use('/api/chatbot', require('./routes/chatbot'))
 app.use('/api/search-keyword', require('./routes/search-keyword'))
 app.use('/api/search-suggestion', require('./routes/search-suggestion'))
 

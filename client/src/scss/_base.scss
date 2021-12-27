@@ -53,14 +53,14 @@ ol {
 	background-color: #e78632;
 	background-image: -webkit-linear-gradient(
 		45deg,
-		rgba(255, 255, 255, 0.3) 20%,
+		rgba($main-color, 0.5) 20%,
 		transparent 20%,
 		transparent 40%,
-		rgba(255, 255, 255, 0.3) 40%,
-		rgba(255, 255, 255, 0.3) 60%,
+		rgba($main-color, 0.5) 40%,
+		rgba($main-color, 0.5) 60%,
 		transparent 60%,
 		transparent 80%,
-		rgba(255, 255, 255, 0.3) 80%
+		rgba($main-color, 0.5) 80%
 	);
 	border-radius: 10px;
 }

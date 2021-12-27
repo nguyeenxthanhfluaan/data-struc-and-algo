@@ -1,3 +1,29 @@
 .homepage {
 	background-color: #eee;
+
+	&__chatbot {
+		position: fixed;
+		right: 80px;
+		bottom: 80px;
+
+		&__close {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			width: 20px;
+			height: 20px;
+			color: #5e5c5c;
+			cursor: pointer;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		&__open {
+			position: absolute;
+			font-size: 4rem;
+			color: #2898ec;
+			cursor: pointer;
+		}
+	}
 }

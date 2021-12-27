@@ -132,11 +132,11 @@ const search = async ({
 		})
 	}
 
-	aggregateQuery.push({
-		$project: {
-			content: 0,
-		},
-	})
+	// aggregateQuery.push({
+	// 	$project: {
+	// 		content: 0,
+	// 	},
+	// })
 
 	if (skip) {
 		aggregateQuery.push({
