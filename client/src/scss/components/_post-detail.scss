@@ -11,6 +11,11 @@
 		padding: 20px;
 		background-color: $white-color;
 
+		&__text {
+			line-height: 1.4;
+			font-size: 1.7rem;
+		}
+
 		&__header {
 			&__path {
 				a {

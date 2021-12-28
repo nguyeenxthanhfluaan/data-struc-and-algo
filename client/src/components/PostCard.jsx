@@ -13,11 +13,16 @@ const PostCard = ({ post }) => {
 		return null
 	}
 
+	const handleErrorImg = (e) => {
+		e.target.onerror = null
+		e.target.src = img
+	}
+
 	return (
 		<div className='post-card'>
 			<div className='post-card__thumb'>
 				<Link to={`/post/${post._id}`}>
-					<img src={img} alt='' />
+					<img src={post.thumbnail.url} onError={handleErrorImg} />
 				</Link>
 			</div>
 			<div className='post-card__header'>

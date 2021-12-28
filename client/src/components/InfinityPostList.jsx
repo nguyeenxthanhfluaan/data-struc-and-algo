@@ -26,13 +26,6 @@ const InfinityList = ({ limit, filter, title }) => {
 		})
 	)
 
-	// If no filter
-	useEffect(() => {
-		if (Object.keys(filter).length === 0) {
-			dispatch(fetchPosts({ limit }))
-		}
-	}, [])
-
 	// If there is filter
 	useEffect(() => {
 		if (Object.keys(filter).length > 0) {

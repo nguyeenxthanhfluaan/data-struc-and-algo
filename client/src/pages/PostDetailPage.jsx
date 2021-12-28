@@ -6,6 +6,7 @@ import {
 	clearPosts,
 	fetchPostById,
 	fetchPosts,
+	fetchRelevantPosts,
 } from '../redux/post/post.actions'
 
 import Highlight from 'react-highlight'
@@ -36,20 +37,35 @@ const PostDetailPage = () => {
 
 	useEffect(() => {
 		dispatch(fetchPostById(id))
-		dispatch(clearPosts())
+		dispatch(fetchRelevantPosts({}))
 	}, [id])
 
 	useEffect(() => {
 		if (Object.keys(post).length > 0) {
 			dispatch(
-				fetchPosts({
-					subject: post?.subject?._id,
-					keyword: post.title,
+				fetchRelevantPosts({
+					title: post.title,
+					curId: post._id,
+					category: post.category._id,
+					subject: post.subject._id,
+					type: post.type._id,
 					limit: 6,
 				})
 			)
 		}
 	}, [post])
+
+	// useEffect(() => {
+	// 	if (Object.keys(post).length > 0) {
+	// 		dispatch(
+	// 			fetchPosts({
+	// 				subject: post?.subject?._id,
+	// 				keyword: post.title,
+	// 				limit: 6,
+	// 			})
+	// 		)
+	// 	}
+	// }, [post])
 
 	return (
 		<>
@@ -113,7 +129,12 @@ const PostDetailPage = () => {
 								</div>
 								<Separate direction='horizontal' thickness='2px' />
 								<Marginer margin='20px' />
-								<Highlight innerHTML>{post.content}</Highlight>
+								<Highlight
+									innerHTML
+									className='post-detail__content__text'
+								>
+									{post.content}
+								</Highlight>
 							</>
 						)}
 					</div>

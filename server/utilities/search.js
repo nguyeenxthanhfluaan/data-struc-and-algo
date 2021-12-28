@@ -40,6 +40,7 @@ const search = async ({
 	sort,
 	skip,
 	limit,
+	approximate,
 }) => {
 	let aggregateQuery = []
 
@@ -48,23 +49,43 @@ const search = async ({
 	const sortObj = handleSortString(sort)
 
 	if (keyword) {
-		aggregateQuery.push({
-			$search: {
-				index: 'searchPosts',
-				text: {
-					query: keyword,
-					path: {
-						wildcard: '*',
-					},
-					// fuzzy: {},
-					score: {
-						boost: {
-							value: 3,
+		if (approximate) {
+			aggregateQuery.push({
+				$search: {
+					index: 'searchPosts',
+					text: {
+						query: keyword,
+						path: {
+							wildcard: '*',
+						},
+						fuzzy: {},
+						score: {
+							boost: {
+								value: 3,
+							},
 						},
 					},
 				},
-			},
-		})
+			})
+		} else {
+			aggregateQuery.push({
+				$search: {
+					index: 'searchPosts',
+					text: {
+						query: keyword,
+						path: {
+							wildcard: '*',
+						},
+						// fuzzy: {},
+						score: {
+							boost: {
+								value: 3,
+							},
+						},
+					},
+				},
+			})
+		}
 
 		aggregateQuery.push({
 			$addFields: { score: { $meta: 'searchScore' } },
@@ -132,11 +153,11 @@ const search = async ({
 		})
 	}
 
-	// aggregateQuery.push({
-	// 	$project: {
-	// 		content: 0,
-	// 	},
-	// })
+	aggregateQuery.push({
+		$project: {
+			content: 0,
+		},
+	})
 
 	if (skip) {
 		aggregateQuery.push({

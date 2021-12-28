@@ -150,3 +150,27 @@ export const fetchSearchSuggestion = (keyword) => async (dispatch) => {
 		console.log(error)
 	}
 }
+
+export const fetchRelevantPosts =
+	({ title, curId, category, subject, type, limit }) =>
+	async (dispatch) => {
+		try {
+			dispatch({ type: postTypes.CLEAR_POSTS })
+			const result = await axios.get('/api/post/relevant', {
+				params: {
+					title,
+					curId,
+					category,
+					subject,
+					type,
+					limit,
+				},
+			})
+			dispatch({
+				type: postTypes.SET_POSTS,
+				payload: result.data,
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}

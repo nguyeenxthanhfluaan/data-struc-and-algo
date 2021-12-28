@@ -30,7 +30,7 @@ const Menu = () => {
 									subject.category._id === category._id ? (
 										<Link
 											key={`${category._id}${subject._id}`}
-											to='/'
+											to={`/search?category=${category._id}&subject=${subject._id}`}
 										>
 											<div className='menu__list__item__content'>
 												<span className='menu__list__item__content__dot'>

@@ -22,12 +22,21 @@ class MessageParser {
 		try {
 			const { data } = await axios.get(`/api/chatbot/ask/${keyword}`)
 
+			console.log({ data })
+
 			if (data.errorMsg) {
-				this.actionProvider.handleAsk(data.errorMsg)
-			} else {
-				this.actionProvider.handleAsk(data.msg)
+				return this.actionProvider.handleAsk(data.errorMsg)
 			}
-		} catch (error) {}
+
+			if (data.msg) {
+				return this.actionProvider.handleAsk(data.msg)
+			} else {
+				this.actionProvider.hadnleServerError()
+			}
+		} catch (error) {
+			console.log(error)
+			this.actionProvider.hadnleServerError()
+		}
 	}
 }
 

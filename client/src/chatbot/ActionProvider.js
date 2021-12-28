@@ -27,12 +27,14 @@ class ActionProvider {
 		}))
 	}
 
-	handleWaiting() {
+	hadnleServerError() {
 		this.setState((prev) => ({
 			...prev,
 			messages: [
 				...prev.messages,
-				this.createChatbotMessage('Please waiting . . .'),
+				this.createChatbotMessage(
+					'Ups, xin lỗi bạn, máy chủ đang lỗi . . .'
+				),
 			],
 		}))
 	}

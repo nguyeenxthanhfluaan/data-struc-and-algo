@@ -5,10 +5,32 @@ const auth = require('../middlewares/auth')
 
 const mongoose = require('mongoose')
 const Post = require('../models/Post')
-const SearchKeyword = require('../models/SearchKeyword')
 const ObjectId = mongoose.Types.ObjectId
 
 const search = require('../utilities/search')
+const getRelevantPosts = require('../utilities/getRelevantPosts')
+
+// @route   GET /api/post/relevant
+// @desc    Delete a post
+// @access  Public
+router.get('/relevant', async (req, res) => {
+	try {
+		const { title, curId, category, subject, type, limit } = req.query
+
+		console.log({ title, curId, category, subject, type, limit })
+
+		const posts = await search({
+			keyword: title,
+			category: category,
+			approximate: true,
+		})
+
+		res.json(getRelevantPosts({ posts, limit, subject, type, curId }))
+	} catch (error) {
+		console.log(error)
+		res.sendStatus(500)
+	}
+})
 
 // @route   GET api/post?category=algorithm&keyword=test
 // @desc    Search posts if no keyword
@@ -101,94 +123,30 @@ router.get('/:id', async (req, res) => {
 	}
 })
 
-// @route   POST /api/post
-// @desc    Create a post
-// @access  Private
-router.post('/', async (req, res) => {
-	try {
-		const { title, description, content, category, type, subject, keywords } =
-			req.body
-
-		console.log(req.body)
-
-		const post = new Post({
-			title,
-			description,
-			content,
-			type,
-			category,
-			subject,
-			keywords,
-		})
-		const result = await post.save()
-		res.json(result)
-	} catch (error) {
-		console.log(error)
-		res.status(500).send('Server Error')
-	}
-})
-
-// @route   PUT /api/post
-// @desc    Update a post
-// @access  Private
-router.put('/', async (req, res) => {
-	try {
-		const {
-			_id,
-			title,
-			description,
-			content,
-			category,
-			type,
-			subject,
-			keywords,
-		} = req.body
-
-		const result = await Post.findOneAndUpdate(
-			{ _id },
-			{
-				title,
-				description,
-				content,
-				category,
-				type,
-				subject,
-				keywords,
-				lastModified: Date.now(),
-			},
-			{ new: true }
-		)
-		res.json(result)
-	} catch (error) {
-		console.log(error)
-		res.sendStatus(500)
-	}
-})
-
 // @route   DELETE /api/post/:id
 // @desc    Delete a post
 // @access  Private
-router.delete('/:id', async (req, res) => {
-	try {
-		const post = await Post.findByIdAndDelete(req.params.id)
-		res.json(post)
-	} catch (error) {
-		console.log(error)
-		res.sendStatus(500)
-	}
-})
+// router.delete('/:id', async (req, res) => {
+// 	try {
+// 		const post = await Post.findByIdAndDelete(req.params.id)
+// 		res.json(post)
+// 	} catch (error) {
+// 		console.log(error)
+// 		res.sendStatus(500)
+// 	}
+// })
 
 // @route   DELETE /api/post/
 // @desc    Delete all posts
 // @access  Private
-router.delete('/', async (req, res) => {
-	try {
-		await Post.deleteMany()
-		res.send('delete all success')
-	} catch (error) {
-		console.log(error)
-		res.sendStatus(500)
-	}
-})
+// router.delete('/', async (req, res) => {
+// 	try {
+// 		await Post.deleteMany()
+// 		res.send('delete all success')
+// 	} catch (error) {
+// 		console.log(error)
+// 		res.sendStatus(500)
+// 	}
+// })
 
 module.exports = router

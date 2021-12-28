@@ -27,14 +27,16 @@ router.get('/ask/:keyword', async (req, res) => {
 		}
 
 		let replyMsg = result[0].content
-			.replace(/<\/p.*>/i, '\n')
+			.replace(/<\/p>/gi, '\n')
 			.replace(/(<([^>]+)>)/g, '.')
-			.match(/Khái niệm:[^$]*/i)[0]
-			.replace(/.*Khái niệm:/i, '')
+			.match(/Khái niệm:[^\n]+/gi)[0]
+			.replace(/.*Khái niệm:[^\w]*/i, '')
+			.replace(/[.]*$/gi, '')
 
 		res.json({ msg: replyMsg })
 	} catch (error) {
-		res.send(error)
+		res.sendStatus(500)
+		console.log(error)
 	}
 })
 
