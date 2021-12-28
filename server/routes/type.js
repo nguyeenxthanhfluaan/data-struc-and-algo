@@ -7,7 +7,7 @@ const Type = require('../models/Type')
 // @access  Public
 router.get('/', async (req, res) => {
 	try {
-		const result = await Type.find()
+		const result = await Type.find().sort({ name: 1 })
 		res.json(result)
 	} catch (error) {
 		res.send(error)

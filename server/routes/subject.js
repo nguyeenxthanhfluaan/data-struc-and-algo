@@ -8,11 +8,12 @@ const Category = require('../models/Category')
 // @access  Public
 router.get('/', async (req, res) => {
 	try {
-		const result = await Subject.find().populate({
-			path: 'category',
-			model: Category,
-			// match: { _id: '619300419fc26712471ca3f2' }
-		})
+		const result = await Subject.find()
+			.populate({
+				path: 'category',
+				model: Category,
+			})
+			.sort({ name: 1 })
 		res.json(result)
 	} catch (error) {
 		res.send(error)

@@ -1,5 +1,6 @@
 .post-detail {
 	display: flex;
+	width: 100%;
 
 	&__menu {
 		flex-shrink: 0;
@@ -10,10 +11,17 @@
 		flex-grow: 1;
 		padding: 20px;
 		background-color: $white-color;
+		width: 100%;
+		overflow: hidden;
 
-		&__text {
+		&__html-container {
 			line-height: 1.4;
 			font-size: 1.7rem;
+			overflow: hidden;
+
+			a {
+				color: $main-color;
+			}
 		}
 
 		&__header {

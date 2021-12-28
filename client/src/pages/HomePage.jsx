@@ -15,7 +15,7 @@ import { faRobot, faTimes } from '@fortawesome/free-solid-svg-icons'
 const Homepage = () => {
 	const dispatch = useDispatch()
 
-	const [isShowChatbot, setIsShowChatbot] = useState(true)
+	const [isShowChatbot, setIsShowChatbot] = useState(false)
 
 	const { posts } = useSelector(({ post }) => ({ posts: post.posts }))
 

@@ -5,29 +5,7 @@ class ActionProvider {
 		this.createClientMessage = createClientMessage
 	}
 
-	handleException() {
-		this.setState((prev) => ({
-			...prev,
-			messages: [
-				...prev.messages,
-				this.createChatbotMessage(
-					'Xin lỗi, Tôi không hiểu bạn đang nói gì!'
-				),
-			],
-		}))
-	}
-
-	handleSaidName() {
-		this.setState((prev) => ({
-			...prev,
-			messages: [
-				...prev.messages,
-				this.createChatbotMessage('Tôi tên là Daisy. Còn bạn tên gì?'),
-			],
-		}))
-	}
-
-	hadnleServerError() {
+	handleServerError() {
 		this.setState((prev) => ({
 			...prev,
 			messages: [

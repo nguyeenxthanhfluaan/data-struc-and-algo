@@ -10,19 +10,8 @@ class MessageParser {
 		const lowercaseMsg = message.toLowerCase()
 		const keyword = handleTestMsg(lowercaseMsg)
 
-		console.log(keyword)
-		if (keyword === false) {
-			return this.actionProvider.handleException()
-		}
-
-		if (keyword === 'tên bạn') {
-			return this.actionProvider.handleSaidName()
-		}
-
 		try {
 			const { data } = await axios.get(`/api/chatbot/ask/${keyword}`)
-
-			console.log({ data })
 
 			if (data.errorMsg) {
 				return this.actionProvider.handleAsk(data.errorMsg)
@@ -31,7 +20,7 @@ class MessageParser {
 			if (data.msg) {
 				return this.actionProvider.handleAsk(data.msg)
 			} else {
-				this.actionProvider.hadnleServerError()
+				this.actionProvider.handleServerError()
 			}
 		} catch (error) {
 			console.log(error)
@@ -80,5 +69,5 @@ const handleTestMsg = (msg = '') => {
 		return keyword.trim()
 	}
 
-	return false
+	return msg
 }

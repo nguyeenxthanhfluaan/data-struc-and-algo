@@ -59,6 +59,8 @@ const SearchPage = () => {
 			initialFilter.subject = paramsSubject
 		}
 
+		initialFilter.sort = SORT_TYPES.NEWEST
+
 		setFilter(initialFilter)
 	}, [search])
 

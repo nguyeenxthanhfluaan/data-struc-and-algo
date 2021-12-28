@@ -26,12 +26,8 @@ const InfinityList = ({ limit, filter, title }) => {
 		})
 	)
 
-	// If there is filter
 	useEffect(() => {
-		if (Object.keys(filter).length > 0) {
-			console.log('dispatch trong filter')
-			dispatch(fetchPosts({ limit, keyword, category, subject, sort, type }))
-		}
+		dispatch(fetchPosts({ limit, keyword, category, subject, sort, type }))
 	}, [filter])
 
 	// When there was error, reduce page by 1, because when

@@ -9,7 +9,7 @@ const Subject = require('../models/Subject')
 // @access  Public
 router.get('/', async (req, res) => {
 	try {
-		const result = await Category.find()
+		const result = await Category.find().sort({ name: 1 })
 		res.json(result)
 	} catch (error) {
 		res.send('server error')

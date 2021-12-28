@@ -131,7 +131,7 @@ const PostDetailPage = () => {
 								<Marginer margin='20px' />
 								<Highlight
 									innerHTML
-									className='post-detail__content__text'
+									className='post-detail__content__html-container'
 								>
 									{post.content}
 								</Highlight>
