@@ -14,7 +14,7 @@ $ git clone https://github.com/buivantann/data-structures-and-algorithm.git
 $ npm run init
 ```
 
-### 3. Add file .env to server folder, and supply MONGO_URI to .env file
+### 3. Create file .env in server folder, and set MONGO_URI to .env file
 
 ### 4. Run
 
