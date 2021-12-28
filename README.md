@@ -19,5 +19,5 @@ $ npm run init
 # 4. run
 
 ```
-npm run dev
+$ npm run dev
 ```
