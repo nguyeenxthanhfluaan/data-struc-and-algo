@@ -49,6 +49,12 @@ const search = async ({
 	const sortObj = handleSortString(sort)
 
 	if (keyword) {
+		await SearchKeyword.findOneAndUpdate(
+			{ keyword },
+			{ $inc: { searchCount: 1 } },
+			{ upsert: true }
+		)
+
 		if (approximate) {
 			aggregateQuery.push({
 				$search: {
@@ -90,12 +96,6 @@ const search = async ({
 		aggregateQuery.push({
 			$addFields: { score: { $meta: 'searchScore' } },
 		})
-
-		await SearchKeyword.findOneAndUpdate(
-			{ keyword },
-			{ $inc: { searchCount: 1 } },
-			{ upsert: true }
-		)
 	}
 
 	aggregateQuery.push({

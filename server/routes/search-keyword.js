@@ -30,4 +30,30 @@ router.get('/most-searched', async (req, res) => {
 	}
 })
 
+router.get('/most-searched1', async (req, res) => {
+	try {
+		console.log(req.query.keyword)
+		const resulttest = await SearchKeyword.findOneAndUpdate(
+			{ keyword: req.query.keyword },
+			{ $inc: { searchCount: 1 } },
+			{ upsert: true }
+		)
+		res.json(resulttest)
+	} catch (error) {
+		console.log(error)
+		res.sendStatus(500)
+	}
+})
+
+router.delete('/', async (req, res) => {
+	try {
+		console.log(req.query.keyword)
+		const resulttest = await SearchKeyword.deleteMany()
+		res.json(resulttest)
+	} catch (error) {
+		console.log(error)
+		res.sendStatus(500)
+	}
+})
+
 module.exports = router
