@@ -4,7 +4,7 @@
 	"description": "Clone the repository:",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"init": "concurrently \"cd client && npm i\" \"cd server && npm i\" \"npm i\"",
+		"init": "npm i && cd client && npm i && cd .. && cd server && npm i ",
 		"client": "cd client && npm start",
 		"server": "cd server && node server.js",
 		"dev": "concurrently \"npm run client\" \"cd server && nodemon server.js\"",
