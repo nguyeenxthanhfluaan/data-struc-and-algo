@@ -8,17 +8,22 @@ class MessageParser {
 
 	async parse(message) {
 		const lowercaseMsg = message.toLowerCase()
+
 		const keyword = handleTestMsg(lowercaseMsg)
+
+		if (keyword === '') {
+			return this.actionProvider.handleAnswer('Vui lòng nhập từ khóa!')
+		}
 
 		try {
 			const { data } = await axios.get(`/api/chatbot/ask/${keyword}`)
 
 			if (data.errorMsg) {
-				return this.actionProvider.handleAsk(data.errorMsg)
+				return this.actionProvider.handleAnswer(data.errorMsg)
 			}
 
 			if (data.msg) {
-				return this.actionProvider.handleAsk(data.msg)
+				return this.actionProvider.handleAnswer(data.msg)
 			} else {
 				this.actionProvider.handleServerError()
 			}

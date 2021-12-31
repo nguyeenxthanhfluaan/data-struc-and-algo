@@ -12,15 +12,23 @@ class ActionProvider {
 				...prev.messages,
 				this.createChatbotMessage(
 					'Ups, xin lỗi bạn, máy chủ đang lỗi . . .'
+					// {
+					// 	widget: 'definition',
+					// }
 				),
 			],
 		}))
 	}
 
-	handleAsk(msg) {
+	handleAnswer(msg) {
 		this.setState((prev) => ({
 			...prev,
-			messages: [...prev.messages, this.createChatbotMessage(msg)],
+			messages: [
+				...prev.messages,
+				this.createChatbotMessage(msg, {
+					widget: 'definition',
+				}),
+			],
 		}))
 	}
 }

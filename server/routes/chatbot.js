@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const Post = require('../models/Post')
-const JSSoup = require('jssoup').default
 const mongoose = require('mongoose')
 const ObjectId = mongoose.Types.ObjectId
+
+const getChatbotAnswer = require('../utilities/getChatbotAnswer')
 
 // @route   GET api/chatbot/ask/:keyword
 // @desc    Reply user question about definition
@@ -32,13 +33,17 @@ router.get('/ask/:keyword', async (req, res) => {
 			},
 		])
 
-		if (result.length === 0) {
-			res.json({
+		const answer = getChatbotAnswer({ keyword, result })
+
+		console.log(answer)
+
+		if (answer) {
+			return res.json({ msg: answer.definition })
+		} else {
+			return res.json({
 				errorMsg: `Xin lỗi! Không tìm thấy định nghĩa của ${keyword}!`,
 			})
 		}
-
-		res.json({ msg: result[0].definition })
 	} catch (error) {
 		res.sendStatus(500)
 		console.log(error)

@@ -35,3 +35,27 @@
 		border: 1px solid #2898ec;
 	}
 }
+
+.chatbot-definition {
+	margin-top: -10px;
+
+	&__item {
+		display: inline-block;
+		padding: 5px 10px;
+		color: #2898ec;
+		border-radius: 20px;
+		background-color: #fff;
+		border: 1px solid #2898ec;
+		transition: all 0.25s ease;
+		cursor: pointer;
+		margin-top: 10px;
+		text-transform: capitalize;
+		margin-left: 6px;
+
+		&:hover {
+			color: #fff;
+			border: 1px solid #fff;
+			background-color: #2898ec;
+		}
+	}
+}
