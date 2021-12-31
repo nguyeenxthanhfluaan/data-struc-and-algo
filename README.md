@@ -8,15 +8,15 @@
 $ git clone https://github.com/buivantann/data-structures-and-algorithm.git
 ```
 
-### 2. install package
+### 2. Install package
 
 ```
 $ npm run init
 ```
 
-### 3. Add file .env to server folder, and supply CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET, MONGO_URI to .env file
+### 3. Create file .env in server folder, and set MONGO_URI to .env file
 
-### 4. run
+### 4. Run
 
 ```
 $ npm run dev
