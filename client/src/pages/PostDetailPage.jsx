@@ -100,7 +100,9 @@ const PostDetailPage = () => {
 											{post.category.name}
 										</Link>{' '}
 										<FontAwesomeIcon icon={faChevronRight} />{' '}
-										<Link to={`/search?subject=${post.subject._id}`}>
+										<Link
+											to={`/search?category=${post.category._id}&subject=${post.subject._id}`}
+										>
 											{post.subject.name}
 										</Link>
 									</div>

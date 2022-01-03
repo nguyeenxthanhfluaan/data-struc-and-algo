@@ -39,7 +39,6 @@ const DefinitionItem = ({ display, keyword, actionProvider }) => {
 
 	useEffect(async () => {
 		const { data } = await axios.get(`/api/chatbot/ask/${keyword}`)
-		console.log({ data })
 		setAnswer(data)
 		setIsLoading(false)
 	}, [])

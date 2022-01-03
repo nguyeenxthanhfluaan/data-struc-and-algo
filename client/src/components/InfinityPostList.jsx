@@ -28,6 +28,8 @@ const InfinityList = ({ limit, filter, title }) => {
 
 	useEffect(() => {
 		dispatch(fetchPosts({ limit, keyword, category, subject, sort, type }))
+		setLoad(false)
+		setPage(1)
 	}, [filter])
 
 	// When there was error, reduce page by 1, because when
@@ -40,7 +42,7 @@ const InfinityList = ({ limit, filter, title }) => {
 	}, [isLoadingPosts, errorLoadPosts])
 
 	useEffect(() => {
-		if (load && !errorLoadPosts && isLastPage === false) {
+		if (load && !errorLoadPosts && !isLastPage) {
 			dispatch(
 				appendPosts({
 					skip: page * limit,
@@ -86,7 +88,7 @@ const InfinityList = ({ limit, filter, title }) => {
 			{!isLoadingPosts && errorLoadPosts && (
 				<div className='infinity-list__error'>
 					<p className='infinity-list__error__title'>
-						Có lỗi xảy ra, vui lòng tải lại
+						Có lỗi xảy ra, vui lòng tải lại trang
 					</p>
 				</div>
 			)}

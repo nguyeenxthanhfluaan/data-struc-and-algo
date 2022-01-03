@@ -29,7 +29,7 @@ const SearchPage = () => {
 
 	const [filter, setFilter] = useState({})
 
-	const { posts, categories, subjects, types } = useSelector(
+	const { categories, subjects, types } = useSelector(
 		({ post, category, subject, type }) => ({
 			posts: post.posts,
 			categories: category.categories,
@@ -59,6 +59,7 @@ const SearchPage = () => {
 			initialFilter.subject = paramsSubject
 		}
 
+		setSort(SORT_TYPES.NEWEST)
 		initialFilter.sort = SORT_TYPES.NEWEST
 
 		setFilter(initialFilter)

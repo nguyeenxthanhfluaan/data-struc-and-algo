@@ -25,9 +25,12 @@ class ActionProvider {
 			...prev,
 			messages: [
 				...prev.messages,
-				this.createChatbotMessage(msg, {
-					widget: 'definition',
-				}),
+				this.createChatbotMessage(
+					msg
+					// {
+					//    widget: 'definition',
+					// }
+				),
 			],
 		}))
 	}
