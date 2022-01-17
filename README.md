@@ -1,11 +1,11 @@
-# Data Structure Search
+# Data Structure And Algo
 
 ## :computer: How to run
 
 ### 1. Clone the repository:
 
 ```
-$ git clone https://github.com/buivantann/data-structures-and-algorithm.git
+$ git clone https://github.com/buivantann/data-struc-and-algo.git
 ```
 
 ### 2. Install package
