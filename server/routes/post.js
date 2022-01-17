@@ -17,8 +17,6 @@ router.get('/relevant', async (req, res) => {
 	try {
 		const { title, curId, category, subject, type, limit } = req.query
 
-		console.log({ title, curId, category, subject, type, limit })
-
 		const posts = await search({
 			keyword: title,
 			category: category,
@@ -41,16 +39,6 @@ router.get('/', async (req, res) => {
 
 		const skipNumber = parseInt(skip)
 		const limitNumber = parseInt(limit)
-
-		console.log({
-			keyword,
-			subject,
-			type,
-			category,
-			sort,
-			skip: skipNumber,
-			limit: limitNumber,
-		})
 
 		const result = await search({
 			keyword,
@@ -123,18 +111,26 @@ router.get('/:id', async (req, res) => {
 	}
 })
 
-// @route   DELETE /api/post/:id
+// @route   DELETE /api/post/count?category=&subject=
 // @desc    Delete a post
 // @access  Private
-// router.delete('/:id', async (req, res) => {
-// 	try {
-// 		const post = await Post.findByIdAndDelete(req.params.id)
-// 		res.json(post)
-// 	} catch (error) {
-// 		console.log(error)
-// 		res.sendStatus(500)
-// 	}
-// })
+router.get('/count', async (req, res) => {
+	try {
+		const { category, subject } = req.query
+		let query = {}
+		if (category) {
+			query.category = category
+		}
+		if (subject) {
+			query.subject = subject
+		}
+		const count = await Post.find(query).count()
+		res.json(count)
+	} catch (error) {
+		console.log(error)
+		res.sendStatus(500)
+	}
+})
 
 // @route   DELETE /api/post/
 // @desc    Delete all posts

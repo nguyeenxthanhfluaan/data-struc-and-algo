@@ -62,8 +62,11 @@ const Header = () => {
 	}
 
 	const handleClickSearchSuggestion = (id) => {
-		console.log('go')
 		return history.push(`/post/${id}`)
+	}
+
+	const handleClickMostSearched = (mostSeachedKeyword) => {
+		return history.push(`/search?keyword=${mostSeachedKeyword}`)
 	}
 
 	return (
@@ -137,7 +140,9 @@ const Header = () => {
 										mostSearchedKeywords.map((item) => (
 											<li
 												key={item._id}
-												onMouseDown={() => {}}
+												onMouseDown={() =>
+													handleClickMostSearched(item.keyword)
+												}
 												className='header__search__box__suggestion__list__item'
 											>
 												<h6 className='header__search__box__suggestion__list__item__title'>

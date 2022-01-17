@@ -1,16 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import InfinityList from '../components/InfinityPostList'
 
-import List from '../components/PostList'
 import Marginer from '../components/Marginer'
 
-import { fetchPosts, SORT_TYPES } from '../redux/post/post.actions'
+import { SORT_TYPES } from '../redux/post/post.actions'
 
 const SearchPage = () => {
-	const dispatch = useDispatch()
-
 	const { search } = useLocation()
 
 	const params = new URLSearchParams(search)
@@ -140,7 +137,9 @@ const SearchPage = () => {
 					onChange={(e) => setSort(e.target.value)}
 				>
 					<option value=''>Sắp xếp theo</option>
-					<option value={SORT_TYPES.RELEVANT}>Liên quan nhất</option>
+					{keyword && (
+						<option value={SORT_TYPES.RELEVANT}>Liên quan nhất</option>
+					)}
 					<option value={SORT_TYPES.MOSTVIEWED}>Xem nhiều nhất</option>
 					<option value={SORT_TYPES.NEWEST}>Mới nhất</option>
 					<option value={SORT_TYPES.OLDEST}>Cũ nhất</option>

@@ -49,7 +49,7 @@ const search = async ({
 	const sortObj = handleSortString(sort)
 
 	if (keyword) {
-		await SearchKeyword.findOneAndUpdate(
+		await SearchKeyword.updateOne(
 			{ keyword },
 			{ $inc: { searchCount: 1 } },
 			{ upsert: true }

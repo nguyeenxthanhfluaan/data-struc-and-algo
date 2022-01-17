@@ -34,7 +34,7 @@ const config = {
 					alignItems: 'center',
 				}}
 			>
-				Conversation with QuizBot
+				Trò chuyện cùng Daisy
 			</div>
 		),
 	},

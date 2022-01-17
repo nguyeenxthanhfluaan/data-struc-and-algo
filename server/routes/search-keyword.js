@@ -20,9 +20,7 @@ router.get('/', async (req, res) => {
 // @access  Pulic
 router.get('/most-searched', async (req, res) => {
 	try {
-		const result = await SearchKeyword.find()
-			.sort({ searchCount: -1 })
-			.limit(10)
+		const result = await SearchKeyword.find().sort({ searchCount: -1 })
 		res.json(result)
 	} catch (error) {
 		console.log(error)
@@ -30,30 +28,15 @@ router.get('/most-searched', async (req, res) => {
 	}
 })
 
-router.get('/most-searched1', async (req, res) => {
-	try {
-		console.log(req.query.keyword)
-		const resulttest = await SearchKeyword.findOneAndUpdate(
-			{ keyword: req.query.keyword },
-			{ $inc: { searchCount: 1 } },
-			{ upsert: true }
-		)
-		res.json(resulttest)
-	} catch (error) {
-		console.log(error)
-		res.sendStatus(500)
-	}
-})
-
-router.delete('/', async (req, res) => {
-	try {
-		console.log(req.query.keyword)
-		const resulttest = await SearchKeyword.deleteMany()
-		res.json(resulttest)
-	} catch (error) {
-		console.log(error)
-		res.sendStatus(500)
-	}
-})
+// router.delete('/', async (req, res) => {
+// 	try {
+// 		console.log(req.query.keyword)
+// 		const resulttest = await SearchKeyword.deleteMany()
+// 		res.json(resulttest)
+// 	} catch (error) {
+// 		console.log(error)
+// 		res.sendStatus(500)
+// 	}
+// })
 
 module.exports = router
